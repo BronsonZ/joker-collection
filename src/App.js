@@ -1,6 +1,6 @@
 import Home from "./comps/Home";
 import UploadForm from "./comps/UploadForm.js";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Nav, Navbar, Container } from "react-bootstrap";
 
 function App() {

@@ -1,14 +1,8 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
-  Button,
-  Alert,
-  Breadcrumb,
-  Dropdown,
-  ButtonGroup,
   Container,
   Row,
-  Col,
 } from "react-bootstrap";
 
 const Home = () => {
