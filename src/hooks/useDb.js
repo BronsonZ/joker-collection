@@ -5,7 +5,7 @@ import { db } from "../firebase/config";
 const useDb = () => {
   const [posts, setPosts] = useState([]);
 
-  useEffect(async () => {
+  useEffect(() => {
     const getData = async () => {
       const q = query(collection(db, "jokers"));
 
