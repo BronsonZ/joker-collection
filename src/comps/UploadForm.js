@@ -1,13 +1,13 @@
 import React from "react";
 import { useState } from "react";
-import Progress from "./Progress";
-import { collection, addDoc, doc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
+import { ProgressBar } from "react-bootstrap";
+import { projectStorage } from "../firebase/config";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import {
   Form,
   Container,
-  Row,
-  Col,
   Button,
   InputGroup,
   FormControl,
@@ -16,10 +16,11 @@ import {
 const UploadForm = () => {
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [error, setError] = useState(null);
 
   const imageCheck = (e) => {
     let file = e.target.files[0];
@@ -34,10 +35,50 @@ const UploadForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const uploadImage = () => {
+    const storageRef = ref(projectStorage, `/images/${image.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, image);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setProgress(progress);
+      },
+      (err) => {
+        setError(err);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((imageUrl) => {
+          uploadPost(imageUrl);
+        });
+      }
+    );
   };
 
+  const uploadPost = async (imageUrl) => {
+    let joker;
+    if (!price) {
+      joker = { name, desc, imageUrl, price: 0 };
+    } else {
+      joker = { name, desc, imageUrl, price };
+    }
+    await addDoc(collection(db, "jokers"), joker);
+    setUploading(false);
+    setName("");
+    setImage("");
+    setDesc("");
+    setPrice("");
+    setProgress(0);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setUploading(true);
+    uploadImage();
+  };
 
   return (
     <div>
@@ -58,8 +99,8 @@ const UploadForm = () => {
             <Form.Control
               placeholder="Name"
               onChange={(e) => setName(e.target.value)}
-              required
               value={name}
+              required
             />
           </Form.Group>
 
@@ -80,8 +121,9 @@ const UploadForm = () => {
             <FormControl
               placeholder="Price"
               accept=""
-              onChange={(e) => setPrice(e.target.value)}
+              onChange={(e) => setPrice(parseInt(e.target.value))}
               type="number"
+              value={price}
             />
           </InputGroup>
 
@@ -89,22 +131,12 @@ const UploadForm = () => {
             className="mb-3"
             variant="dark"
             type="submit"
-            onClick={() => setUploading(true)}
           >
             Submit
           </Button>
         </Form>
-        {uploading && (
-          <Progress
-            image={image}
-            name={name}
-            desc={desc}
-            price={price}
-            setImage={setImage}
-            setImageUrl={setImageUrl}
-            setUploading={setUploading}
-          />
-        )}
+        {uploading && <ProgressBar now={progress} />}
+        {error && <p>{error}</p>}
       </Container>
     </div>
   );
