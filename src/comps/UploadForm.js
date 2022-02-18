@@ -61,9 +61,9 @@ const UploadForm = () => {
   const uploadPost = async (imageUrl) => {
     let joker;
     if (!price) {
-      joker = { name, desc, imageUrl, price: 0 };
+      joker = { name, imageUrl, desc, price: 0 };
     } else {
-      joker = { name, desc, imageUrl, price };
+      joker = { name, imageUrl, desc, price };
     }
     await addDoc(collection(db, "jokers"), joker);
     setUploading(false);
@@ -127,11 +127,7 @@ const UploadForm = () => {
             />
           </InputGroup>
 
-          <Button
-            className="mb-3"
-            variant="dark"
-            type="submit"
-          >
+          <Button className="mb-3" variant="dark" type="submit">
             Submit
           </Button>
         </Form>

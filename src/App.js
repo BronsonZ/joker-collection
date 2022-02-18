@@ -2,6 +2,7 @@ import Home from "./comps/Home";
 import UploadForm from "./comps/UploadForm.js";
 import { Routes, Route } from "react-router-dom";
 import { Nav, Navbar, Container } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
