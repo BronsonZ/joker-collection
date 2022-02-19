@@ -27,9 +27,9 @@ const Stats = () => {
             <h2>Total number of Jokers: {!loadingAll && numberOfJokers}</h2>
             <h2>Total number of Pops: {!loadingPops && numberOfPops}</h2>
             <h2>Total number of Action Figures: {!loadingAf && numberOfAf}</h2>
-            <h2>Total cost: ${totalCost > 0 && totalCost}</h2>
-            <h2>Total pops cost: ${popCost > 0 && popCost}</h2>
-            <h2>Total action figures cost: ${afCost > 0 && afCost}</h2>
+            <h2>Total cost: ${totalCost && totalCost}</h2>
+            <h2>Total pops cost: ${popCost && popCost}</h2>
+            <h2>Total action figures cost: ${afCost && afCost}</h2>
         </Container>
     )
 }

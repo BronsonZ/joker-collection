@@ -5,6 +5,7 @@ import { db } from "../firebase/config";
 import { ProgressBar } from "react-bootstrap";
 import { projectStorage } from "../firebase/config";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { v4 as uuidv4 } from 'uuid';
 import {
   Form,
   Container,
@@ -40,7 +41,8 @@ const UploadForm = () => {
   };
 
   const uploadImage = () => {
-    const storageRef = ref(projectStorage, `/images/${image.name}`);
+    const uuid = uuidv4();
+    const storageRef = ref(projectStorage, `/images/${uuid}`);
     const uploadTask = uploadBytesResumable(storageRef, image);
 
     uploadTask.on(
@@ -56,18 +58,18 @@ const UploadForm = () => {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((imageUrl) => {
-          uploadPost(imageUrl);
+          uploadPost(imageUrl, uuid);
         });
       }
     );
   };
 
-  const uploadPost = async (imageUrl) => {
+  const uploadPost = async (imageUrl, uuid) => {
     let joker;
     if (!price) {
-      joker = { name, imageUrl, desc, category, price: 0 };
+      joker = { name, imageUrl, desc, category, price: 0, uuid };
     } else {
-      joker = { name, imageUrl, desc, category, price };
+      joker = { name, imageUrl, desc, category, price, uuid };
     }
     await addDoc(collection(db, "jokers"), joker);
     setUploading(false);
