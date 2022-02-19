@@ -11,7 +11,7 @@ import {
   Button,
   InputGroup,
   FormControl,
-  Image
+  Image,
 } from "react-bootstrap";
 
 const UploadForm = () => {
@@ -23,14 +23,14 @@ const UploadForm = () => {
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
-  const [tempUrl, setTempUrl ] = useState("");
+  const [tempUrl, setTempUrl] = useState("");
 
   const imageCheck = (e) => {
     let file = e.target.files[0];
     if (file) {
       if (JSON.stringify(file.type).includes("image")) {
         setImage(file);
-        setTempUrl(URL.createObjectURL(file))
+        setTempUrl(URL.createObjectURL(file));
       } else {
         setImage("");
         e.target.value = null;
@@ -89,9 +89,11 @@ const UploadForm = () => {
     <div>
       <Container className="text-center">
         <Form onSubmit={handleSubmit}>
-        {image && <Image rounded className="mt-2 mb-2" width="30%" src={tempUrl}/>}
+          {image && !uploading && (
+            <Image rounded className="mt-2 mb-2" width="30%" src={tempUrl} />
+          )}
+          {uploading && <ProgressBar now={progress} />}
           <Form.Group className="mt-3 mb-3">
-          
             <Form.Label>Image</Form.Label>
             <Form.Control
               type="file"
@@ -116,7 +118,7 @@ const UploadForm = () => {
             <Form.Control
               as="textarea"
               onChange={(e) => setDesc(e.target.value)}
-              rows={3}
+              rows={2}
               placeholder="Description"
               value={desc}
             />
@@ -149,9 +151,7 @@ const UploadForm = () => {
             Submit
           </Button>
         </Form>
-        {uploading && <ProgressBar now={progress} />}
         {error && <p>{error}</p>}
-        
       </Container>
     </div>
   );

@@ -13,7 +13,7 @@ const useDb = (filter) => {
         let q;
 
         if(filter){
-            q = query(collection(db, "jokers"), where("name", "==", filter));
+            q = query(collection(db, "jokers"), where("category", "==", filter));
         } else {
             q = query(collection(db, "jokers"));
         }

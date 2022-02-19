@@ -38,10 +38,10 @@ const ImageGrid = () => {
           id="bronson"
           value={2}
           onClick={() => {
-            setFilter("Bronson");
+            setFilter("pop");
           }}
         >
-          Bronson
+          Pops
         </ToggleButton>
         <ToggleButton
           className="shadow-none"
@@ -49,34 +49,23 @@ const ImageGrid = () => {
           id="cooper"
           value={3}
           onClick={() => {
-            setFilter("Cooper");
+            setFilter("actionFigure");
           }}
         >
-          Cooper
-        </ToggleButton>
-        <ToggleButton
-          className="shadow-none"
-          variant="outline-dark"
-          id="mindi"
-          value={4}
-          onClick={() => {
-            setFilter("Mindi");
-          }}
-        >
-          Mindi
+          Action Figures
         </ToggleButton>
       </ToggleButtonGroup>
       <Row xs={2} sm={2} md={3} lg={4}>
         {posts &&
           posts.map((post) => (
-            <Col className="text-wrap" key={post.id}>
+            <Col className="text-wrap bg-light border" key={post.id}>
               <Link
                 className="text-decoration-none text-reset"
-                to={`/${post.id}`}>
-                <h3>{post.name}</h3>
-                <Image href="" width="80%" rounded fluid src={post.imageUrl} />
-                <p className="mb-0">Description: {post.desc}</p>
-                <p>Price: ${post.price}</p>
+                to={`/${post.id}`}
+              >
+                <h3 className="mb-1">{post.name}</h3>
+                <Image fluid rounded src={post.imageUrl} />
+                {post.desc && <p className="mb-1">Description: {post.desc}</p>}
               </Link>
             </Col>
           ))}
