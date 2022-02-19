@@ -1,5 +1,6 @@
 import Home from "./comps/Home";
 import SinglePost from "./comps/SinglePost";
+import Stats from "./comps/Stats";
 import UploadForm from "./comps/UploadForm.js";
 import { Routes, Route } from "react-router-dom";
 import { Nav, Navbar, Container } from "react-bootstrap";
@@ -20,6 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="upload" element={<UploadForm />} />
+        <Route path="stats" element={<Stats />} />
         <Route path="/:id" element={<SinglePost />} />
       </Routes>
     </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { collection, doc, getDoc, where } from "firebase/firestore";
+import { doc, getDoc, } from "firebase/firestore";
 import { db } from "../firebase/config";
 
 const useSingleDb = (id) => {
@@ -13,12 +13,9 @@ const useSingleDb = (id) => {
         if (docSnap.exists()) {
             setPost(docSnap.data());
         } else {
-          // doc.data() will be undefined in this case
           console.log("No such document!");
-        }
-      
+        }     
     };
-
     getData(id);
   }, [id]);
 

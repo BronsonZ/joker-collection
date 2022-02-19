@@ -11,6 +11,7 @@ import {
   Button,
   InputGroup,
   FormControl,
+  Image
 } from "react-bootstrap";
 
 const UploadForm = () => {
@@ -18,15 +19,18 @@ const UploadForm = () => {
   const [desc, setDesc] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
+  const [category, setCategory] = useState("");
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
+  const [tempUrl, setTempUrl ] = useState("");
 
   const imageCheck = (e) => {
     let file = e.target.files[0];
     if (file) {
       if (JSON.stringify(file.type).includes("image")) {
         setImage(file);
+        setTempUrl(URL.createObjectURL(file))
       } else {
         setImage("");
         e.target.value = null;
@@ -61,14 +65,15 @@ const UploadForm = () => {
   const uploadPost = async (imageUrl) => {
     let joker;
     if (!price) {
-      joker = { name, imageUrl, desc, price: 0 };
+      joker = { name, imageUrl, desc, category, price: 0 };
     } else {
-      joker = { name, imageUrl, desc, price };
+      joker = { name, imageUrl, desc, category, price };
     }
     await addDoc(collection(db, "jokers"), joker);
     setUploading(false);
     setName("");
     setImage("");
+    setTempUrl("");
     setDesc("");
     setPrice("");
     setProgress(0);
@@ -84,7 +89,9 @@ const UploadForm = () => {
     <div>
       <Container className="text-center">
         <Form onSubmit={handleSubmit}>
+        {image && <Image rounded className="mt-2 mb-2" width="30%" src={tempUrl}/>}
           <Form.Group className="mt-3 mb-3">
+          
             <Form.Label>Image</Form.Label>
             <Form.Control
               type="file"
@@ -115,6 +122,17 @@ const UploadForm = () => {
             />
           </Form.Group>
 
+          <Form.Group className="mb-3">
+            <Form.Label>Category</Form.Label>
+            <Form.Select onChange={(e) => setCategory(e.target.value)}>
+              <option value="" selected disabled>
+                Select Category
+              </option>
+              <option value="pop">Pop</option>
+              <option value="actionFigure">Action Figure</option>
+            </Form.Select>
+          </Form.Group>
+
           <Form.Label>Price</Form.Label>
           <InputGroup className="mb-3">
             <InputGroup.Text>$</InputGroup.Text>
@@ -133,6 +151,7 @@ const UploadForm = () => {
         </Form>
         {uploading && <ProgressBar now={progress} />}
         {error && <p>{error}</p>}
+        
       </Container>
     </div>
   );

@@ -4,9 +4,11 @@ import { db } from "../firebase/config";
 
 const useDb = (filter) => {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getData = async (filter) => {
+        setLoading(true);
 
         let q;
 
@@ -25,12 +27,13 @@ const useDb = (filter) => {
         docs.push({ ...doc.data(), id: doc.id });
       });
       setPosts(docs);
+      setLoading(false);
     };
 
     getData(filter);
   }, [filter]);
 
-  return { posts };
+  return { loading, posts };
 };
 
 export default useDb;

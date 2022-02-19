@@ -15,7 +15,7 @@ const ImageGrid = () => {
   const [filter, setFilter] = useState("");
   const { posts } = useDb(filter);
   return (
-    <Container className="mt-3">
+    <Container className="mt-3 text-center">
       <ToggleButtonGroup
         name="filter-buttons"
         defaultValue={1}
@@ -70,11 +70,13 @@ const ImageGrid = () => {
         {posts &&
           posts.map((post) => (
             <Col className="text-wrap" key={post.id}>
-              <Link className="text-decoration-none text-reset" to={`/${post.id}`}>
+              <Link
+                className="text-decoration-none text-reset"
+                to={`/${post.id}`}>
                 <h3>{post.name}</h3>
                 <Image href="" width="80%" rounded fluid src={post.imageUrl} />
                 <p className="mb-0">Description: {post.desc}</p>
-                <p>Price: {post.price}</p>
+                <p>Price: ${post.price}</p>
               </Link>
             </Col>
           ))}
