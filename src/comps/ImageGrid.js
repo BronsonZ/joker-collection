@@ -61,11 +61,11 @@ const ImageGrid = () => {
             <Col className="text-wrap bg-light border" key={post.id}>
               <Link
                 className="text-decoration-none text-reset"
-                to={`/${post.id}`}
+                to={`/jokers/${post.id}`}
               >
                 <h3 className="mb-1">{post.name}</h3>
                 <Image fluid rounded src={post.imageUrl} />
-                {post.desc && <p className="mb-1">Description: {post.desc}</p>}
+                {post.desc && <p className="mb-1">{post.desc}</p>}
               </Link>
             </Col>
           ))}

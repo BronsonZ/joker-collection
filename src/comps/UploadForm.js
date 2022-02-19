@@ -78,6 +78,7 @@ const UploadForm = () => {
     setTempUrl("");
     setDesc("");
     setPrice("");
+    setCategory("");
     setProgress(0);
   };
 
@@ -94,7 +95,7 @@ const UploadForm = () => {
           {image && !uploading && (
             <Image rounded className="mt-2 mb-2" width="30%" src={tempUrl} />
           )}
-          {uploading && <ProgressBar now={progress} />}
+          {uploading && <ProgressBar className="mt-3" now={progress} />}
           <Form.Group className="mt-3 mb-3">
             <Form.Label>Image</Form.Label>
             <Form.Control
