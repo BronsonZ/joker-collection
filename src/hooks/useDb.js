@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react";
-import { collection, query, getDocs } from "firebase/firestore";
+import { collection, query, getDocs, where } from "firebase/firestore";
 import { db } from "../firebase/config";
 
-const useDb = () => {
+const useDb = (filter) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const getData = async () => {
-      const q = query(collection(db, "jokers"));
+    const getData = async (filter) => {
+
+        let q;
+
+        if(filter){
+            q = query(collection(db, "jokers"), where("name", "==", filter));
+        } else {
+            q = query(collection(db, "jokers"));
+        }
+      
 
       const querySnapshot = await getDocs(q);
 
@@ -19,8 +27,8 @@ const useDb = () => {
       setPosts(docs);
     };
 
-    getData();
-  }, []);
+    getData(filter);
+  }, [filter]);
 
   return { posts };
 };
