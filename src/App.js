@@ -6,19 +6,25 @@ import NotFound from "./comps/NotFound";
 import { Routes, Route } from "react-router-dom";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { BsFillPlusCircleFill as PlusCircle } from "react-icons/bs"
+import { MdQueryStats as StatsIcon } from "react-icons/md"
+import { IoHome } from "react-icons/io5"
+import { IconContext } from "react-icons";
 
 function App() {
   return (
-    <div className="App">
-      <Navbar bg="light" sticky="top">
+    <div className="bg-light min-vh-100" >
+      <IconContext.Provider value={{ size: "2em" }}>
+      <Navbar bg="dark" variant="dark" sticky="top">
         <Container>
-          <Navbar.Brand href="/">Home</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link href="/stats">Stats</Nav.Link>
-            <Nav.Link href="/upload">Upload</Nav.Link>
+        <Navbar.Brand href="/"><IoHome /></Navbar.Brand>
+          <Nav>
+            <Nav.Link href="/stats"><StatsIcon/></Nav.Link>
+            <Nav.Link  href="/upload"><PlusCircle/></Nav.Link>
           </Nav>
         </Container>
       </Navbar>
+      </IconContext.Provider>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/upload" element={<UploadForm />} />

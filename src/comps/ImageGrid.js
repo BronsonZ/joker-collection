@@ -55,22 +55,22 @@ const ImageGrid = () => {
           Action Figures
         </ToggleButton>
       </ToggleButtonGroup>
-      <Row xs={2} sm={2} md={3} lg={4}>
+      <Row className="" xs="2" sm="2" md="3" lg="4" xl="4" xxl="5">
         {posts &&
           posts.map((post) => (
-            <Col className="text-wrap bg-light border" key={post.id}>
+            <Col className="text-wrap" key={post.id}>
               <Link
                 className="text-decoration-none text-reset"
                 to={`/jokers/${post.id}`}
               >
                 <h3 className="mb-1">{post.name}</h3>
-                <Image fluid rounded src={post.imageUrl} />
                 {post.desc && <p className="mb-1">{post.desc}</p>}
+                <Image className="mb-2 mt-0" fluid rounded src={post.imageUrl} />
               </Link>
             </Col>
           ))}
       </Row>
-    </Container>
+      </Container>
   );
 };
 
