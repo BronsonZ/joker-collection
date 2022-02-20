@@ -6,6 +6,7 @@ import { ProgressBar } from "react-bootstrap";
 import { projectStorage } from "../firebase/config";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuidv4 } from 'uuid';
+import useLoginCheck from "../hooks/useLoginCheck"
 import {
   Form,
   Container,
@@ -14,8 +15,12 @@ import {
   FormControl,
   Image,
 } from "react-bootstrap";
+import NotLoggedIn from "./NotLoggedIn";
+
 
 const UploadForm = () => {
+  const { loggedIn, checking } = useLoginCheck();
+
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
   const [price, setPrice] = useState("");
@@ -89,9 +94,9 @@ const UploadForm = () => {
   };
 
   return (
-    <div>
       <Container className="text-center">
-        <Form onSubmit={handleSubmit}>
+        {!loggedIn && !checking && <NotLoggedIn/>}
+        {loggedIn && !checking && <Form onSubmit={handleSubmit}>
           {image && !uploading && (
             <Image rounded className="mt-2 mb-2" width="30%" src={tempUrl} />
           )}
@@ -153,10 +158,9 @@ const UploadForm = () => {
           <Button className="mb-3" variant="dark" type="submit">
             Submit
           </Button>
-        </Form>
+        </Form>}
         {error && <p>{error}</p>}
       </Container>
-    </div>
   );
 };
 

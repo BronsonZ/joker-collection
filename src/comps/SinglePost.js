@@ -5,8 +5,10 @@ import useSingleDb from "../hooks/useSingleDb";
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { getStorage, ref, deleteObject } from "firebase/storage";
+import useLoginCheck from "../hooks/useLoginCheck";
 
 const SinglePost = () => {
+  const { loggedIn, checking } = useLoginCheck();
   const navigate = useNavigate();
   const { id } = useParams();
   const { post } = useSingleDb(id);
@@ -38,7 +40,7 @@ const SinglePost = () => {
         <Image className="mb-3" fluid rounded src={post.imageUrl} />
         <Row className="mb-5 mt-3">
           <Col>
-            <Button className="shadow-none" variant="dark" onClick={() => setShow(true)}>Delete Joker</Button>
+            {!checking && loggedIn && <Button className="shadow-none" variant="dark" onClick={() => setShow(true)}>Delete Joker</Button>}
           </Col>
         </Row>
       </Container>

@@ -27,15 +27,13 @@ const ImageGrid = () => {
           id="all"
           value={1}
           onClick={() => {
-            setFilter("");
-          }}
-        >
+            setFilter(""); }}>
           All
         </ToggleButton>
         <ToggleButton
           className="shadow-none"
           variant="outline-dark"
-          id="bronson"
+          id="pop"
           value={2}
           onClick={() => {
             setFilter("pop");
@@ -46,7 +44,7 @@ const ImageGrid = () => {
         <ToggleButton
           className="shadow-none"
           variant="outline-dark"
-          id="cooper"
+          id="actionFigure"
           value={3}
           onClick={() => {
             setFilter("actionFigure");

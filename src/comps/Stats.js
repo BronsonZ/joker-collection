@@ -1,6 +1,6 @@
 import React from "react";
 import useDb from "../hooks/useDb";
-import { Container } from "react-bootstrap"
+import { Container, Table } from "react-bootstrap"
 
 const Stats = () => {
     const { posts: allJokers, loading: loadingAll } = useDb("");
@@ -24,12 +24,36 @@ const Stats = () => {
     }
     return (
         <Container className="mt-3 text-center text-wrap">
-            <h2>Total number of Jokers: {!loadingAll && numberOfJokers}</h2>
-            <h2>Total number of Pops: {!loadingPops && numberOfPops}</h2>
-            <h2>Total number of Action Figures: {!loadingAf && numberOfAf}</h2>
-            <h2>Total cost: ${totalCost && totalCost}</h2>
-            <h2>Total pops cost: ${popCost && popCost}</h2>
-            <h2>Total action figures cost: ${afCost && afCost}</h2>
+            <Table striped size="">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th># of</th>
+                        <th>Price</th>
+                        <th>Avergae Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pops</td>
+                        <td>{!loadingPops && numberOfPops}</td>
+                        <td>${popCost}</td>
+                        <td>${!loadingPops && Math.round(popCost/numberOfPops)}</td>
+                    </tr>
+                    <tr>
+                        <td>Action Figures</td>
+                        <td>{!loadingAf && numberOfAf}</td>
+                        <td>${afCost}</td>
+                        <td>${!loadingAf && Math.round(afCost/numberOfAf)}</td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td>{!loadingAll && numberOfJokers}</td>
+                        <td>${totalCost}</td>
+                        <td>${!loadingAll && Math.round(totalCost/numberOfJokers)}</td>
+                    </tr>
+                </tbody>
+            </Table>
         </Container>
     )
 }
