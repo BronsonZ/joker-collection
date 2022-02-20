@@ -33,7 +33,7 @@ const SinglePost = () => {
   };
   return (
     <>
-      <Container className="mt-3 text-center text-wrap">
+      <Container className="mt-3 text-center text-wrap overflow-auto">
         <h1>{post.name}</h1>
         <h3 className="mb-0">{post.desc}</h3>
         <h3>Cost: ${post.price}</h3>

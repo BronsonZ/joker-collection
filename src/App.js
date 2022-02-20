@@ -31,7 +31,7 @@ function App() {
         </Container>
       </Navbar>
       </IconContext.Provider>
-      <div className="overflow-auto">
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/upload" element={<UploadForm />} />
@@ -41,7 +41,6 @@ function App() {
         <Route path="/*" element={<NotFound />} />
       </Routes>
       </div>
-    </div>
   );
 }
 
