@@ -186,7 +186,7 @@ const UploadForm = () => {
             />
           </InputGroup>
 
-          <Button variant="success" type="submit">
+          <Button className="mb-5" variant="success" type="submit">
             Submit
           </Button>
         </Form>
