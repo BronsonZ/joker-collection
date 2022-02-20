@@ -24,7 +24,7 @@ const UploadForm = () => {
   const [desc, setDesc] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("other");
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
@@ -161,8 +161,9 @@ const UploadForm = () => {
             <Form.Select
               className="text-success"
               onChange={(e) => setCategory(e.target.value)}
+              required
             >
-              <option value="" selected disabled>
+              <option selected disabled>
                 Select Category
               </option>
               <option value="pop">Pop</option>
