@@ -54,7 +54,7 @@ const LoginPage = () => {
 
   return (
     <div>
-      <Container className="text-center">
+      <Container className="text-center text-success">
         {!checking && !loggedIn && (
           <Form onSubmit={handleSubmit}>
             <FloatingLabel
@@ -78,14 +78,14 @@ const LoginPage = () => {
               />
             </FloatingLabel>
             {!user?.email && (
-              <Button className="mb-3 mt-3" variant="dark" type="submit">
+              <Button className="mb-3 mt-3" variant="success" type="submit">
                 Login
               </Button>
             )}
           </Form>
         )}
         {user?.email && (
-          <Button className="mb-3 mt-3" variant="dark" onClick={() => logout()}>
+          <Button className="mb-3 mt-3" variant="success" onClick={() => logout()}>
             Logout
           </Button>
         )}

@@ -40,7 +40,7 @@ const SinglePost = () => {
         <Image className="mb-3" fluid rounded src={post.imageUrl} />
         <Row className="mb-5 mt-3">
           <Col>
-            {!checking && loggedIn && <Button className="shadow-none mb-5" variant="dark" onClick={() => setShow(true)}>Delete Joker</Button>}
+            {!checking && loggedIn && <Button className="shadow-none mb-5" variant="success" onClick={() => setShow(true)}>Delete Joker</Button>}
           </Col>
         </Row>
       </Container>

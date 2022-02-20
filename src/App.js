@@ -18,11 +18,11 @@ function App() {
   const { loggedIn, checking } = useLoginCheck();
 
   return (
-    <div className="bg-light min-vh-100" >
-      <IconContext.Provider value={{ size: "1.5em" }}>
+    <div className="bg-dark min-vh-100 text-white" >
+      <IconContext.Provider value={{color: "#7554A3", size: "1.5em" }}>
       <Navbar bg="dark" variant="dark" sticky="top">
         <Container>
-        <Navbar.Brand href="/">Mindi's Joker Collection!</Navbar.Brand>
+        <Navbar.Brand style={{color: "#7554A3"}} href="/">Mindi's Joker Collection!</Navbar.Brand>
           <Nav>
             {!checking  && loggedIn && <Nav.Link  href="/upload"><PlusCircle/></Nav.Link>}
             <Nav.Link  href="/login"><IoPersonAdd/></Nav.Link>

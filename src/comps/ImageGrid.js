@@ -18,16 +18,17 @@ const ImageGrid = () => {
 
   const { posts } = useDb(filter);
   return (
-    <Container className="mt-3 text-center">
+    <Container className="mt-3 text-center text-white">
       <h1>{title}</h1>
-      <ButtonGroup className="mb-3">
+      <ButtonGroup  className="mb-3">
         <DropdownButton
           as={ButtonGroup}
           title="Filter"
           id="bg-nested-dropdown"
-          variant="outline-dark"
+          variant="success"
         >
           <Dropdown.Item
+          className="text-success"
             eventKey="1"
             onClick={() => {
               setTitle("All Jokers");
@@ -37,6 +38,7 @@ const ImageGrid = () => {
             All
           </Dropdown.Item>
           <Dropdown.Item
+          className="text-success"
             eventKey="2"
             onClick={() => {
               setTitle("Pops");
@@ -46,6 +48,7 @@ const ImageGrid = () => {
             Pops
           </Dropdown.Item>
           <Dropdown.Item
+          className="text-success"
             eventKey="3"
             onClick={() => {
               setTitle("Figurines");
@@ -55,6 +58,7 @@ const ImageGrid = () => {
             Figurines
           </Dropdown.Item>
           <Dropdown.Item
+          className="text-success"
             eventKey="4"
             onClick={() => {
               setTitle("Action Figures");
@@ -64,6 +68,7 @@ const ImageGrid = () => {
             Action Figures
           </Dropdown.Item>
           <Dropdown.Item
+          className="text-success"
             eventKey="5"
             onClick={() => {
               setTitle("Keychains");
@@ -73,6 +78,7 @@ const ImageGrid = () => {
             Keychains
           </Dropdown.Item>
           <Dropdown.Item
+          className="text-success"
             eventKey="6"
             onClick={() => {
               setTitle("Others");
