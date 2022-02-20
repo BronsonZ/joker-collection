@@ -45,7 +45,7 @@ const UploadForm = () => {
   };
 
   const uploadImage = () => {
-    if (JSON.stringify(image.type).includes("image")) {
+    if (image && JSON.stringify(image.type).includes("image")) {
       const uuid = uuidv4();
       const storageRef = ref(projectStorage, `/images/${uuid}`);
       const uploadTask = uploadBytesResumable(storageRef, image);
