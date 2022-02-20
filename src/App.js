@@ -8,7 +8,6 @@ import { Nav, Navbar, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BsFillPlusCircleFill as PlusCircle } from "react-icons/bs"
 import { MdQueryStats as StatsIcon } from "react-icons/md"
-import { IoHome } from "react-icons/io5"
 import { IconContext } from "react-icons";
 import { IoPersonAdd } from "react-icons/io5"
 import LoginPage from "./comps/LoginPage";

@@ -7,11 +7,13 @@ import {
 } from "firebase/auth";
 import { auth } from "../firebase/config";
 import { Form, Container, Button, FloatingLabel } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState("");
+  const navigate = useNavigate();
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
@@ -20,11 +22,12 @@ const LoginPage = () => {
   const login = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      navigate("/")
     } catch (error) {
       console.log(error.code);
-      if (error.code == "auth/user-not-found") {
+      if (error.code === "auth/user-not-found") {
         alert("Account not found or incorrect email");
-      } else if (error.code == "auth/wrong-password") {
+      } else if (error.code === "auth/wrong-password") {
         alert("Wrong password");
       } else {
         alert(error.message);
