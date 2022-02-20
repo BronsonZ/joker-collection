@@ -19,11 +19,11 @@ function App() {
   const { loggedIn, checking } = useLoginCheck();
 
   return (
-    <div className="bg-light" style={{height: "100vh"}} >
+    <div className="bg-light min-vh-100" >
       <IconContext.Provider value={{ size: "1.5em" }}>
       <Navbar bg="dark" variant="dark" sticky="top">
         <Container>
-        <Navbar.Brand href="/"><IoHome /></Navbar.Brand>
+        <Navbar.Brand href="/">Mindi's Joker Collection!</Navbar.Brand>
           <Nav>
             {!checking  && loggedIn && <Nav.Link  href="/upload"><PlusCircle/></Nav.Link>}
             <Nav.Link  href="/login"><IoPersonAdd/></Nav.Link>
@@ -32,6 +32,7 @@ function App() {
         </Container>
       </Navbar>
       </IconContext.Provider>
+      <div className="overflow-auto">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/upload" element={<UploadForm />} />
@@ -40,6 +41,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
+      </div>
     </div>
   );
 }

@@ -6,7 +6,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth } from "../firebase/config";
-import { Form, Container, Button } from "react-bootstrap";
+import { Form, Container, Button, FloatingLabel } from "react-bootstrap";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -21,9 +21,15 @@ const LoginPage = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
-      console.log(error.message)
+      console.log(error.code);
+      if (error.code == "auth/user-not-found") {
+        alert("Account not found or incorrect email");
+      } else if (error.code == "auth/wrong-password") {
+        alert("Wrong password");
+      } else {
+        alert(error.message);
+      }
     }
-    setEmail("");
     setPassword("");
   };
 
@@ -44,38 +50,40 @@ const LoginPage = () => {
   return (
     <div>
       <Container className="text-center">
-        {!user?.email && <Form onSubmit={handleSubmit}>
-          <Form.Group className="mt-3 mb-3">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Enter email"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Enter password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              required
-            />
-          </Form.Group>
-          {!user?.email && (
-            <Button className="mb-3" variant="dark" type="submit">
-              Login
-            </Button>
-          )}
-        </Form>}
+        {!user?.email && (
+          <Form onSubmit={handleSubmit}>
+            <FloatingLabel
+              controlId="floatingInput"
+              label="Email address"
+              className="mb-3 mt-3"
+            >
+              <Form.Control
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                placeholder="name@example.com"
+              />
+            </FloatingLabel>
+            <FloatingLabel controlId="floatingPassword" label="Password">
+              <Form.Control
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                placeholder="Password"
+              />
+            </FloatingLabel>
+            {!user?.email && (
+              <Button className="mb-3 mt-3" variant="dark" type="submit">
+                Login
+              </Button>
+            )}
+          </Form>
+        )}
         {user?.email && (
-            <Button className="mb-3 mt-3" variant="dark" onClick={() => logout()}>
-              Logout
-            </Button>
-          )}
+          <Button className="mb-3 mt-3" variant="dark" onClick={() => logout()}>
+            Logout
+          </Button>
+        )}
         <div>{user?.email}</div>
       </Container>
     </div>

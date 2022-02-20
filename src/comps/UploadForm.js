@@ -100,7 +100,7 @@ const UploadForm = () => {
           {image && !uploading && (
             <Image rounded className="mt-2 mb-2" width="30%" src={tempUrl} />
           )}
-          {uploading && <ProgressBar className="mt-3" now={progress} />}
+          {uploading && <ProgressBar animated striped variant="success" label={`${progress}%`} className="mt-3" now={progress} />}
           <Form.Group className="mt-3 mb-3">
             <Form.Label>Image</Form.Label>
             <Form.Control
