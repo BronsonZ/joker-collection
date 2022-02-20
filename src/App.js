@@ -16,7 +16,7 @@ import useLoginCheck from "./hooks/useLoginCheck";
 
 function App() {
 
-  const { loggedIn, checking, user } = useLoginCheck();
+  const { loggedIn, checking } = useLoginCheck();
 
   return (
     <div className="bg-light" style={{height: "100vh"}} >
