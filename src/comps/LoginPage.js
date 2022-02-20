@@ -9,7 +9,7 @@ import { auth } from "../firebase/config";
 import { Form, Container, Button, FloatingLabel } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+const LoginPage = (redirect) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState("");
@@ -22,7 +22,7 @@ const LoginPage = () => {
   const login = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/")
+      navigate(redirect)
     } catch (error) {
       console.log(error.code);
       if (error.code === "auth/user-not-found") {
