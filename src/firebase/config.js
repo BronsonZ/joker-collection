@@ -5,7 +5,7 @@ import { getAuth } from "firebase/auth"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: '${{ secrets.FIREBASE_API_KEY }}',
+  apiKey: "AIzaSyARz4vNoYt-B_ohrYInPiaRUehocurpLWo",
   authDomain: "joker-collection-17d8c.firebaseapp.com",
   projectId: "joker-collection-17d8c",
   storageBucket: "joker-collection-17d8c.appspot.com",
