@@ -44,7 +44,7 @@ const LoginPage = () => {
   return (
     <div>
       <Container className="text-center">
-        <Form onSubmit={handleSubmit}>
+        {!user?.email && <Form onSubmit={handleSubmit}>
           <Form.Group className="mt-3 mb-3">
             <Form.Label>Email</Form.Label>
             <Form.Control
@@ -70,12 +70,12 @@ const LoginPage = () => {
               Login
             </Button>
           )}
-          {user?.email && (
-            <Button className="mb-3" variant="dark" onClick={() => logout()}>
+        </Form>}
+        {user?.email && (
+            <Button className="mb-3 mt-3" variant="dark" onClick={() => logout()}>
               Logout
             </Button>
           )}
-        </Form>
         <div>{user?.email}</div>
       </Container>
     </div>

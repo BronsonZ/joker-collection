@@ -36,11 +36,11 @@ const SinglePost = () => {
       <Container className="mt-3 text-center text-wrap">
         <h1>{post.name}</h1>
         <h3 className="mb-0">{post.desc}</h3>
-        <h3>Price: ${post.price}</h3>
+        <h3>Cost: ${post.price}</h3>
         <Image className="mb-3" fluid rounded src={post.imageUrl} />
         <Row className="mb-5 mt-3">
           <Col>
-            {!checking && loggedIn && <Button className="shadow-none" variant="dark" onClick={() => setShow(true)}>Delete Joker</Button>}
+            {!checking && loggedIn && <Button className="shadow-none mb-5" variant="dark" onClick={() => setShow(true)}>Delete Joker</Button>}
           </Col>
         </Row>
       </Container>

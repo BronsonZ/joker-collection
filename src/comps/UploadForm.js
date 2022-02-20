@@ -139,7 +139,10 @@ const UploadForm = () => {
                 Select Category
               </option>
               <option value="pop">Pop</option>
+              <option value="figurine">Figurine</option>
               <option value="actionFigure">Action Figure</option>
+              <option value="keychain">Keychain</option>
+              <option value="other">Other</option>
             </Form.Select>
           </Form.Group>
 

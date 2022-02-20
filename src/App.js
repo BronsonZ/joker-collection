@@ -19,13 +19,13 @@ function App() {
   const { loggedIn, checking, user } = useLoginCheck();
 
   return (
-    <div className="bg-light min-vh-100" >
+    <div className="bg-light" style={{height: "100vh"}} >
       <IconContext.Provider value={{ size: "1.5em" }}>
       <Navbar bg="dark" variant="dark" sticky="top">
         <Container>
         <Navbar.Brand href="/"><IoHome /></Navbar.Brand>
           <Nav>
-            {!checking  && loggedIn && <Nav.Link  href="/upload">Hi {user.email}! <PlusCircle/></Nav.Link>}
+            {!checking  && loggedIn && <Nav.Link  href="/upload"><PlusCircle/></Nav.Link>}
             <Nav.Link  href="/login"><IoPersonAdd/></Nav.Link>
             <Nav.Link href="/stats"><StatsIcon/></Nav.Link>
           </Nav>
