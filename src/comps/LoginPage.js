@@ -8,12 +8,14 @@ import {
 import { auth } from "../firebase/config";
 import { Form, Container, Button, FloatingLabel } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import useLoginCheck from "../hooks/useLoginCheck";
 
-const LoginPage = (redirect) => {
+const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState("");
   const navigate = useNavigate();
+  const { loggedIn, checking } = useLoginCheck();
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
@@ -22,7 +24,7 @@ const LoginPage = (redirect) => {
   const login = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate(redirect)
+      navigate("/");
     } catch (error) {
       console.log(error.code);
       if (error.code === "auth/user-not-found") {
@@ -53,7 +55,7 @@ const LoginPage = (redirect) => {
   return (
     <div>
       <Container className="text-center">
-        {!user?.email && (
+        {!checking && !loggedIn && (
           <Form onSubmit={handleSubmit}>
             <FloatingLabel
               controlId="floatingInput"
