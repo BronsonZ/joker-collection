@@ -118,7 +118,7 @@ const UploadForm = () => {
           <Form.Group className="mt-3 mb-3">
             <Form.Label>Image</Form.Label>
             <Form.Control
-            className="text-success"
+              className="text-success"
               type="file"
               accept=".jpg,.jpeg,.png,.gif,.tiff"
               onChange={(e) => imageCheck(e)}
@@ -143,17 +143,15 @@ const UploadForm = () => {
             </FloatingLabel>
           </Form.Group>
           <Form.Group>
-            
             <Form.Label>Description</Form.Label>
             <FloatingLabel controlId="floatingDesc" label="Description">
               <Form.Control
-                className="mb-3"
+                className="mb-3 text-success"
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
                 as="textarea"
                 placeholder="Description"
-                className="text-success"
-                style={{height: '100px'}}
+                style={{ height: "100px" }}
               />
             </FloatingLabel>
           </Form.Group>
@@ -179,7 +177,7 @@ const UploadForm = () => {
           <InputGroup className="mb-3">
             <InputGroup.Text className="text-success">$</InputGroup.Text>
             <FormControl
-            className="text-success"
+              className="text-success"
               accept=""
               onChange={(e) => setPrice(parseInt(e.target.value))}
               type="number"
