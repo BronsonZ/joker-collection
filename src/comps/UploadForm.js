@@ -95,6 +95,7 @@ const UploadForm = () => {
     setPrice("");
     setCategory("");
     setProgress(0);
+    window.location.reload();
   };
 
   const handleSubmit = (e) => {
