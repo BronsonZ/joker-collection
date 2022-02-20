@@ -18,7 +18,7 @@ const ImageGrid = () => {
 
   const { posts } = useDb(filter);
   return (
-    <Container className="mt-3 text-center text-white">
+    <Container className="mt-3 text-center">
       <h1>{title}</h1>
       <ButtonGroup  className="mb-3">
         <DropdownButton

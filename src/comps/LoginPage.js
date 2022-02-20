@@ -67,6 +67,7 @@ const LoginPage = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 placeholder="name@example.com"
+                className="text-success"
               />
             </FloatingLabel>
             <FloatingLabel controlId="floatingPassword" label="Password">
@@ -75,6 +76,7 @@ const LoginPage = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 placeholder="Password"
+                className="text-success"
               />
             </FloatingLabel>
             {!user?.email && (

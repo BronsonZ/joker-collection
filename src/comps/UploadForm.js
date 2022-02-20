@@ -2,11 +2,11 @@ import React from "react";
 import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
-import { ProgressBar } from "react-bootstrap";
+import { FloatingLabel, ProgressBar } from "react-bootstrap";
 import { projectStorage } from "../firebase/config";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { v4 as uuidv4 } from 'uuid';
-import useLoginCheck from "../hooks/useLoginCheck"
+import { v4 as uuidv4 } from "uuid";
+import useLoginCheck from "../hooks/useLoginCheck";
 import {
   Form,
   Container,
@@ -16,7 +16,6 @@ import {
   Image,
 } from "react-bootstrap";
 import NotLoggedIn from "./NotLoggedIn";
-
 
 const UploadForm = () => {
   const { loggedIn, checking } = useLoginCheck();
@@ -60,6 +59,7 @@ const UploadForm = () => {
       },
       (err) => {
         setError(err);
+        alert(err.message);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((imageUrl) => {
@@ -76,7 +76,12 @@ const UploadForm = () => {
     } else {
       joker = { name, imageUrl, desc, category, price, uuid };
     }
-    await addDoc(collection(db, "jokers"), joker);
+    try {
+      await addDoc(collection(db, "jokers"), joker);
+    } catch (err) {
+      alert(err.message);
+    }
+
     setUploading(false);
     setName("");
     setImage("");
@@ -94,16 +99,26 @@ const UploadForm = () => {
   };
 
   return (
-      <Container className="text-center">
-        {!loggedIn && !checking && <NotLoggedIn/>}
-        {loggedIn && !checking && <Form onSubmit={handleSubmit}>
+    <Container className="text-center">
+      {!loggedIn && !checking && <NotLoggedIn />}
+      {loggedIn && !checking && (
+        <Form onSubmit={handleSubmit}>
           {image && !uploading && (
             <Image rounded className="mt-2 mb-2" width="30%" src={tempUrl} />
           )}
-          {uploading && <ProgressBar animated variant="success" label={`${progress}%`} className="mt-3" now={progress} />}
+          {uploading && (
+            <ProgressBar
+              animated
+              variant="success"
+              label={`${progress}%`}
+              className="mt-3"
+              now={progress}
+            />
+          )}
           <Form.Group className="mt-3 mb-3">
             <Form.Label>Image</Form.Label>
             <Form.Control
+            className="text-success"
               type="file"
               accept=".jpg,.jpeg,.png,.gif,.tiff"
               onChange={(e) => imageCheck(e)}
@@ -111,30 +126,44 @@ const UploadForm = () => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3">
+          <Form.Group>
             <Form.Label>Name</Form.Label>
-            <Form.Control
-              placeholder="Name"
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-              required
-            />
-          </Form.Group>
 
-          <Form.Group className="mb-3">
+            <FloatingLabel
+              controlId="floatingName"
+              label="Name"
+              className="mb-3"
+            >
+              <Form.Control
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Name"
+                className="text-success"
+              />
+            </FloatingLabel>
+          </Form.Group>
+          <Form.Group>
+            
             <Form.Label>Description</Form.Label>
-            <Form.Control
-              as="textarea"
-              onChange={(e) => setDesc(e.target.value)}
-              rows={2}
-              placeholder="Description"
-              value={desc}
-            />
+            <FloatingLabel controlId="floatingDesc" label="Description">
+              <Form.Control
+                className="mb-3"
+                value={desc}
+                onChange={(e) => setDesc(e.target.value)}
+                as="textarea"
+                placeholder="Description"
+                className="text-success"
+                style={{height: '100px'}}
+              />
+            </FloatingLabel>
           </Form.Group>
 
-          <Form.Group className="mb-3">
+          <Form.Group className="mb-3 text-success">
             <Form.Label>Category</Form.Label>
-            <Form.Select onChange={(e) => setCategory(e.target.value)}>
+            <Form.Select
+              className="text-success"
+              onChange={(e) => setCategory(e.target.value)}
+            >
               <option value="" selected disabled>
                 Select Category
               </option>
@@ -148,9 +177,9 @@ const UploadForm = () => {
 
           <Form.Label>Price</Form.Label>
           <InputGroup className="mb-3">
-            <InputGroup.Text>$</InputGroup.Text>
+            <InputGroup.Text className="text-success">$</InputGroup.Text>
             <FormControl
-              placeholder="Price"
+            className="text-success"
               accept=""
               onChange={(e) => setPrice(parseInt(e.target.value))}
               type="number"
@@ -158,12 +187,13 @@ const UploadForm = () => {
             />
           </InputGroup>
 
-          <Button variant="dark" type="submit">
+          <Button variant="success" type="submit">
             Submit
           </Button>
-        </Form>}
-        {error && <p>{error}</p>}
-      </Container>
+        </Form>
+      )}
+      {error && <p>{error}</p>}
+    </Container>
   );
 };
 

@@ -43,7 +43,7 @@ const Stats = () => {
     }
     return (
         <Container className="mt-3 text-center text-wrap">
-            <Table variant="dark"  size="">
+            <Table className="text-success" variant="dark">
                 <thead>
                     <tr>
                         <th></th>
