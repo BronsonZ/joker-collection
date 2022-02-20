@@ -98,8 +98,6 @@ const ImageGrid = () => {
                 className="text-decoration-none text-reset"
                 to={`/jokers/${post.id}`}
               >
-                {/* <h3 className="mb-1">{post.name}</h3>
-                {post.desc && <p className="mb-1">{post.desc}</p>} */}
                 <Image
                   rounded
                   src={post.imageUrl}
