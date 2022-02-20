@@ -45,28 +45,33 @@ const UploadForm = () => {
   };
 
   const uploadImage = () => {
-    const uuid = uuidv4();
-    const storageRef = ref(projectStorage, `/images/${uuid}`);
-    const uploadTask = uploadBytesResumable(storageRef, image);
+    if (JSON.stringify(image.type).includes("image")) {
+      const uuid = uuidv4();
+      const storageRef = ref(projectStorage, `/images/${uuid}`);
+      const uploadTask = uploadBytesResumable(storageRef, image);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setProgress(progress);
-      },
-      (err) => {
-        setError(err);
-        alert(err.message);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((imageUrl) => {
-          uploadPost(imageUrl, uuid);
-        });
-      }
-    );
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setProgress(progress);
+        },
+        (err) => {
+          setError(err);
+          alert(err.message);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((imageUrl) => {
+            uploadPost(imageUrl, uuid);
+          });
+        }
+      );
+    } else {
+      setImage("");
+      alert("Image error, reselect image")
+    }
   };
 
   const uploadPost = async (imageUrl, uuid) => {
@@ -162,8 +167,9 @@ const UploadForm = () => {
               className="text-success"
               onChange={(e) => setCategory(e.target.value)}
               required
+              defaultValue=""
             >
-              <option selected disabled>
+              <option value="" disabled>
                 Select Category
               </option>
               <option value="pop">Pop</option>
