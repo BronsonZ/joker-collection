@@ -28,7 +28,7 @@ const useLoginCheck = (badSite) => {
     return () => {
       abort.abort()
     }
-  }, []);
+  }, [navigate, badSite]);
 
   return { loggedIn, checking, user };
 };
