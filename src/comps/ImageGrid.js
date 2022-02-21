@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import useFilter from "../hooks/useFilter";
+import LazyLoad from 'react-lazyload';
 
 const ImageGrid = () => {
   const [filter, setFilter] = useState("");
@@ -100,12 +101,13 @@ const ImageGrid = () => {
                 className="text-decoration-none text-reset"
                 to={`/jokers/${post.id}`}
               >
+                <LazyLoad height={300} offset={50}>
                 <Image
                   rounded
                   src={post.imageUrl}
-                  style={{objectFit: "cover"}}
-                  className="w-100 h-100"
+                  className="w-100"
                 />
+                </LazyLoad>
               </Link>
             </Col>
           ))}
