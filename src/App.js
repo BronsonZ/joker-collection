@@ -18,7 +18,7 @@ function App() {
   const { loggedIn, checking } = useLoginCheck();
 
   return (
-    <div className="bg-dark min-vh-100 text-success" >
+    <div className="bg-dark text-success" >
       <IconContext.Provider value={{color: "#7554A3", size: "1.5em" }}>
       <Navbar bg="dark" variant="dark" sticky="top">
         <Container>
