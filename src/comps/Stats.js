@@ -1,14 +1,15 @@
 import React from "react";
 import useDb from "../hooks/useDb";
+import useFilter from "../hooks/useFilter";
 import { Container, Table } from "react-bootstrap"
 
 const Stats = () => {
     const { posts: allJokers, loading: loadingAll } = useDb("");
-    const { posts: popJokers, loading: loadingPops } = useDb("pop");
-    const { posts: fJokers, loading: loadingF } = useDb("figurine");
-    const { posts: keychainJokers, loading: loadingKeychain } = useDb("keychain");
-    const { posts: afJokers, loading: loadingAf } = useDb("actionFigure");
-    const { posts: otherJokers, loading: loadingOther } = useDb("other");
+    const { filtered: popJokers} = useFilter(allJokers, "pop");
+    const { filtered: fJokers} = useFilter(allJokers, "figurine");
+    const { filtered: keychainJokers} = useFilter(allJokers, "keychain");
+    const { filtered: afJokers} = useFilter(allJokers, "actionFigure");
+    const { filtered: otherJokers} = useFilter(allJokers, "other");
     const numberOfJokers = allJokers.length;
     const numberOfAf = afJokers.length;
     const numberOfPops = popJokers.length;
@@ -55,42 +56,44 @@ const Stats = () => {
                 <tbody>
                 <tr>
                         <td>Pops</td>
-                        <td>{!loadingPops && numberOfPops}</td>
+                        <td>{!loadingAll && numberOfPops}</td>
                         <td>${popCost}</td>
-                        <td>${!loadingPops && popCost>0 ? Math.round(popCost/numberOfPops) : 0}</td>
+                        <td>${!loadingAll && popCost>0 ? Math.round(popCost/numberOfPops) : 0}</td>
                     </tr>
                     <tr>
                         <td>Figurines</td>
-                        <td>{!loadingF && numberOfFigurines}</td>
+                        <td>{!loadingAll && numberOfFigurines}</td>
                         <td>${fCost}</td>
-                        <td>${!loadingF && fCost>0 ? Math.round(fCost/numberOfFigurines) : 0}</td>
+                        <td>${!loadingAll && fCost>0 ? Math.round(fCost/numberOfFigurines) : 0}</td>
                     </tr>
                     <tr>
                         <td>Action Figures</td>
-                        <td>{!loadingAf && numberOfAf}</td>
+                        <td>{!loadingAll && numberOfAf}</td>
                         <td>${afCost}</td>
-                        <td>${!loadingAf && afCost>0 ? Math.round(afCost/numberOfAf) : 0}</td>
+                        <td>${!loadingAll && afCost>0 ? Math.round(afCost/numberOfAf) : 0}</td>
                     </tr>
                     <tr>
                         <td>Keychains</td>
-                        <td>{!loadingKeychain && numberOfKeychains}</td>
+                        <td>{!loadingAll && numberOfKeychains}</td>
                         <td>${keychainCost}</td>
-                        <td>${!loadingKeychain && keychainCost>0 ? Math.round(keychainCost/numberOfKeychains) : 0}</td>
+                        <td>${!loadingAll && keychainCost>0 ? Math.round(keychainCost/numberOfKeychains) : 0}</td>
                     </tr>
                     <tr>
                         <td>Other</td>
-                        <td>{!loadingOther && numberOfOther}</td>
+                        <td>{!loadingAll && numberOfOther}</td>
                         <td>${otherCost}</td>
-                        <td>${!loadingOther && otherCost>0 ? Math.round(otherCost/numberOfOther) : 0}</td>
+                        <td>${!loadingAll && otherCost>0 ? Math.round(otherCost/numberOfOther) : 0}</td>
                     </tr>
                     
                 </tbody>
-                <tr>
+                <tfoot>
+                    <tr>
                         <td>Total</td>
                         <td>{!loadingAll && numberOfJokers}</td>
                         <td>${totalCost}</td>
                         <td>${!loadingAll && totalCost>0 ? Math.round(totalCost/numberOfJokers) : 0}</td>
                     </tr>
+                </tfoot>
             </Table>
         </Container>
     )

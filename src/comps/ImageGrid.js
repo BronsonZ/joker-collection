@@ -11,12 +11,14 @@ import {
   Dropdown,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import useFilter from "../hooks/useFilter";
 
 const ImageGrid = () => {
   const [filter, setFilter] = useState("");
   const [title, setTitle] = useState("All Jokers");
 
-  const { posts } = useDb(filter);
+  const { posts: unFiltered } = useDb();
+  const { filtered: posts } = useFilter(unFiltered, filter);
   return (
     <Container className="mt-3 text-center">
       <h1>{title}</h1>
