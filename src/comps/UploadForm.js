@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
@@ -15,10 +14,9 @@ import {
   FormControl,
   Image,
 } from "react-bootstrap";
-import NotLoggedIn from "./NotLoggedIn";
 
 const UploadForm = () => {
-  const { loggedIn, checking } = useLoginCheck();
+  const { loggedIn, checking } = useLoginCheck(true);
 
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
@@ -27,7 +25,6 @@ const UploadForm = () => {
   const [category, setCategory] = useState("other");
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [error, setError] = useState(null);
   const [tempUrl, setTempUrl] = useState("");
 
   const imageCheck = (e) => {
@@ -59,7 +56,6 @@ const UploadForm = () => {
           setProgress(progress);
         },
         (err) => {
-          setError(err);
           alert(err.message);
         },
         () => {
@@ -70,6 +66,7 @@ const UploadForm = () => {
       );
     } else {
       setImage("");
+      setUploading(false);
       alert("Image error, reselect image")
     }
   };
@@ -106,8 +103,7 @@ const UploadForm = () => {
 
   return (
     <Container className="text-center">
-      {!loggedIn && !checking && <NotLoggedIn />}
-      {loggedIn && !checking && (
+      { !checking && loggedIn  && (
         <Form onSubmit={handleSubmit}>
           {image && !uploading && (
             <Image rounded className="mt-2 mb-2" width="30%" src={tempUrl} />
@@ -198,7 +194,6 @@ const UploadForm = () => {
           </Button>
         </Form>
       )}
-      {error && <p>{error}</p>}
     </Container>
   );
 };

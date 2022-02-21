@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import {
   onAuthStateChanged,
@@ -26,6 +25,7 @@ const LoginPage = () => {
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/");
     } catch (error) {
+      setPassword("");
       console.log(error.code);
       if (error.code === "auth/user-not-found") {
         alert("Account not found or incorrect email");
@@ -35,7 +35,6 @@ const LoginPage = () => {
         alert(error.message);
       }
     }
-    setPassword("");
   };
 
   const logout = async () => {

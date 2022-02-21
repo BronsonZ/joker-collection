@@ -7,6 +7,7 @@ const useDb = (filter) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const abort = new AbortController();
     const getData = async (filter) => {
         setLoading(true);
 
@@ -29,8 +30,10 @@ const useDb = (filter) => {
       setPosts(docs);
       setLoading(false);
     };
-
     getData(filter);
+    return () => {
+      abort.abort()
+    }
   }, [filter]);
 
   return { loading, posts };

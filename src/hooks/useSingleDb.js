@@ -6,6 +6,7 @@ const useSingleDb = (id) => {
   const [post, setPost] = useState([]);
 
   useEffect(() => {
+    const abort = new AbortController();
     const getData = async (id) => {
         const docRef = doc(db, "jokers", id);
         const docSnap = await getDoc(docRef);
@@ -17,6 +18,9 @@ const useSingleDb = (id) => {
         }     
     };
     getData(id);
+    return () => {
+      abort.abort()
+    }
   }, [id]);
 
   return { post };

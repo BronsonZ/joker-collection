@@ -1,4 +1,3 @@
-import React from "react";
 import useDb from "../hooks/useDb";
 import useFilter from "../hooks/useFilter";
 import { Container, Table } from "react-bootstrap"
