@@ -32,7 +32,6 @@ const Stats = () => {
     for(let i = 0; i<numberOfAf; ++i){
         afCost+=afJokers[i].price;
     }
-
     for(let i = 0; i<numberOfFigurines; ++i){
         fCost+=fJokers[i].price;
     }

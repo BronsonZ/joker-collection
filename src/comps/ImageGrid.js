@@ -18,7 +18,7 @@ const ImageGrid = () => {
   const [title, setTitle] = useState("All Jokers");
 
   const { posts: unFiltered } = useDb();
-  const { filtered: posts } = useFilter(unFiltered, filter);
+  const { filtered } = useFilter(unFiltered, filter);
   return (
     <Container className="mt-3 text-center">
       <h1>{title}</h1>
@@ -93,8 +93,8 @@ const ImageGrid = () => {
       </ButtonGroup>
 
       <Row xs="2" sm="2" md="3" lg="4" xl="5" xxl="6">
-        {posts &&
-          posts.map((post) => (
+        {filtered &&
+          filtered.map((post) => (
             <Col className="text-wrap p-1" key={post.id}>
               <Link
                 className="text-decoration-none text-reset"
