@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useDb from "../hooks/useDb";
 import { Link } from "react-router-dom";
 import {
@@ -14,10 +14,34 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import useFilter from "../hooks/useFilter";
 import LazyLoad from "react-lazyload";
 import ScaleLoader from "react-spinners/ScaleLoader";
+import useQueryString from "../hooks/useQueryString";
 
 const ImageGrid = () => {
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useQueryString("", "");
   const [title, setTitle] = useState("All Jokers");
+
+  useEffect(()=>{
+    switch(filter){
+      case "pop":
+        setTitle("Pops")
+        break;
+      case "actionFigure":
+        setTitle("Action  Figures")
+        break;
+      case "figurine":
+        setTitle("Figurines")
+        break;
+      case "keychain":
+        setTitle("Keychains")
+        break;
+      case "other":
+        setTitle("Others")
+        break;
+      default:
+        setTitle("All Jokers")
+        break;
+    }
+  }, [filter])
 
   const { posts: unFiltered } = useDb();
   const { filtered } = useFilter(unFiltered, filter);
@@ -33,9 +57,8 @@ const ImageGrid = () => {
         >
           <Dropdown.Item
             className="text-success"
-            eventKey="1"
+            eventKey=""
             onClick={() => {
-              setTitle("All Jokers");
               setFilter("");
             }}
           >
@@ -43,9 +66,8 @@ const ImageGrid = () => {
           </Dropdown.Item>
           <Dropdown.Item
             className="text-success"
-            eventKey="2"
+            eventKey="pop"
             onClick={() => {
-              setTitle("Pops");
               setFilter("pop");
             }}
           >
@@ -53,9 +75,8 @@ const ImageGrid = () => {
           </Dropdown.Item>
           <Dropdown.Item
             className="text-success"
-            eventKey="3"
+            eventKey="figurine"
             onClick={() => {
-              setTitle("Figurines");
               setFilter("figurine");
             }}
           >
@@ -63,9 +84,8 @@ const ImageGrid = () => {
           </Dropdown.Item>
           <Dropdown.Item
             className="text-success"
-            eventKey="4"
+            eventKey="actionFigure"
             onClick={() => {
-              setTitle("Action Figures");
               setFilter("actionFigure");
             }}
           >
@@ -73,9 +93,8 @@ const ImageGrid = () => {
           </Dropdown.Item>
           <Dropdown.Item
             className="text-success"
-            eventKey="5"
+            eventKey="keychain"
             onClick={() => {
-              setTitle("Keychains");
               setFilter("keychain");
             }}
           >
@@ -83,9 +102,8 @@ const ImageGrid = () => {
           </Dropdown.Item>
           <Dropdown.Item
             className="text-success"
-            eventKey="6"
+            eventKey="other"
             onClick={() => {
-              setTitle("Others");
               setFilter("other");
             }}
           >
