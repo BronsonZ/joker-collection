@@ -22,7 +22,7 @@ function App() {
       <IconContext.Provider value={{color: "#7554A3", size: "1.5em" }}>
       <Navbar bg="dark" variant="dark" sticky="top">
         <Container>
-        <Navbar.Brand style={{color: "#7554A3"}} href="/">Mindi's Joker Collection!</Navbar.Brand>
+        <Navbar.Brand style={{color: "#7554A3", fontSize: "1.5em" }} href="/">Mindi's Jokers!</Navbar.Brand>
           <Nav>
             {!checking  && loggedIn && <Nav.Link  href="/upload"><PlusCircle/></Nav.Link>}
             <Nav.Link  href="/login"><IoPersonAdd/></Nav.Link>
