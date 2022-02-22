@@ -12,7 +12,8 @@ import {
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import useFilter from "../hooks/useFilter";
-import LazyLoad from 'react-lazyload';
+import LazyLoad from "react-lazyload";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 const ImageGrid = () => {
   const [filter, setFilter] = useState("");
@@ -23,7 +24,7 @@ const ImageGrid = () => {
   return (
     <Container className="mt-3 text-center">
       <h1>{title}</h1>
-      <ButtonGroup  className="mb-3">
+      <ButtonGroup className="mb-3">
         <DropdownButton
           as={ButtonGroup}
           title="Filter"
@@ -31,7 +32,7 @@ const ImageGrid = () => {
           variant="success"
         >
           <Dropdown.Item
-          className="text-success"
+            className="text-success"
             eventKey="1"
             onClick={() => {
               setTitle("All Jokers");
@@ -41,7 +42,7 @@ const ImageGrid = () => {
             All
           </Dropdown.Item>
           <Dropdown.Item
-          className="text-success"
+            className="text-success"
             eventKey="2"
             onClick={() => {
               setTitle("Pops");
@@ -51,7 +52,7 @@ const ImageGrid = () => {
             Pops
           </Dropdown.Item>
           <Dropdown.Item
-          className="text-success"
+            className="text-success"
             eventKey="3"
             onClick={() => {
               setTitle("Figurines");
@@ -61,7 +62,7 @@ const ImageGrid = () => {
             Figurines
           </Dropdown.Item>
           <Dropdown.Item
-          className="text-success"
+            className="text-success"
             eventKey="4"
             onClick={() => {
               setTitle("Action Figures");
@@ -71,7 +72,7 @@ const ImageGrid = () => {
             Action Figures
           </Dropdown.Item>
           <Dropdown.Item
-          className="text-success"
+            className="text-success"
             eventKey="5"
             onClick={() => {
               setTitle("Keychains");
@@ -81,7 +82,7 @@ const ImageGrid = () => {
             Keychains
           </Dropdown.Item>
           <Dropdown.Item
-          className="text-success"
+            className="text-success"
             eventKey="6"
             onClick={() => {
               setTitle("Others");
@@ -101,12 +102,18 @@ const ImageGrid = () => {
                 className="text-decoration-none text-reset"
                 to={`/jokers/${post.id}`}
               >
-                <LazyLoad height={300} offset={50}>
-                <Image
-                  rounded
-                  src={post.imageUrl}
-                  className="w-100"
-                />
+                <LazyLoad
+                  once={true}
+                  placeholder={
+                    <ScaleLoader
+                      height={200}
+                      width={10}
+                      margin={10}
+                      color="#058759"
+                    />
+                  }
+                >
+                  <Image rounded src={post.imageUrl} className="w-100" />
                 </LazyLoad>
               </Link>
             </Col>

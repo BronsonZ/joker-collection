@@ -105,8 +105,12 @@ const UploadForm = () => {
     <Container className="text-center">
       { !checking && loggedIn  && (
         <Form onSubmit={handleSubmit}>
+          <h1> Upload a new Joker! </h1>
           {image && !uploading && (
-            <Image rounded className="mt-2 mb-2" width="30%" src={tempUrl} />
+            <div>
+            <Image rounded className="mt-2 mb-2" style={{maxHeight: "210px"}} src={tempUrl} />
+            <p>Selected Image</p>
+            </div>
           )}
           {uploading && (
             <ProgressBar
@@ -117,8 +121,7 @@ const UploadForm = () => {
               now={progress}
             />
           )}
-          <Form.Group className="mt-3 mb-3">
-            <Form.Label>Image</Form.Label>
+          <Form.Group className="mt-4 mb-3">
             <Form.Control
               className="text-success"
               type="file"
@@ -129,8 +132,6 @@ const UploadForm = () => {
           </Form.Group>
 
           <Form.Group>
-            <Form.Label>Name</Form.Label>
-
             <FloatingLabel
               controlId="floatingName"
               label="Name"
@@ -141,11 +142,11 @@ const UploadForm = () => {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Name"
                 className="text-success"
+                required
               />
             </FloatingLabel>
           </Form.Group>
           <Form.Group>
-            <Form.Label>Description</Form.Label>
             <FloatingLabel controlId="floatingDesc" label="Description">
               <Form.Control
                 className="mb-3 text-success"
@@ -159,7 +160,6 @@ const UploadForm = () => {
           </Form.Group>
 
           <Form.Group className="mb-3 text-success">
-            <Form.Label>Category</Form.Label>
             <Form.Select
               className="text-success"
               onChange={(e) => setCategory(e.target.value)}
@@ -177,9 +177,8 @@ const UploadForm = () => {
             </Form.Select>
           </Form.Group>
 
-          <Form.Label>Price</Form.Label>
           <InputGroup className="mb-3">
-            <InputGroup.Text className="text-success">$</InputGroup.Text>
+            <InputGroup.Text className="text-success">Cost $</InputGroup.Text>
             <FormControl
               className="text-success"
               accept=""

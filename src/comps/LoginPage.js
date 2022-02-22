@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
@@ -12,13 +11,8 @@ import useLoginCheck from "../hooks/useLoginCheck";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState("");
   const navigate = useNavigate();
-  const { loggedIn, checking } = useLoginCheck();
-
-  onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-  });
+  const { loggedIn, checking, user } = useLoginCheck();
 
   const login = async () => {
     try {
@@ -43,7 +37,6 @@ const LoginPage = () => {
     } catch (error) {
       console.log(error);
     }
-    setUser(null);
   };
 
   const handleSubmit = (e) => {
@@ -78,19 +71,23 @@ const LoginPage = () => {
                 className="text-success"
               />
             </FloatingLabel>
-            {!user?.email && (
-              <Button className="mb-3 mt-3" variant="success" type="submit">
-                Login
-              </Button>
-            )}
+            <Button className="mb-3 mt-3" variant="success" type="submit">
+              Login
+            </Button>
           </Form>
         )}
-        {user?.email && (
-          <Button className="mb-3 mt-3" variant="success" onClick={() => logout()}>
+        {!checking && loggedIn &&  (
+          <>
+          <h2 className="mt-4">You are currently logged in as {user.email}</h2>
+          <Button
+            className="mb-3 mt-3"
+            variant="success"
+            onClick={() => logout()}
+          >
             Logout
           </Button>
+          </>
         )}
-        <div>{user?.email}</div>
       </Container>
     </div>
   );
