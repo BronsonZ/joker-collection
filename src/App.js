@@ -15,15 +15,15 @@ function App() {
 
   return (
     <div className="text-success" >
-      <Navbar sticky="top" bg="dark" expand="md">
+      <Navbar style={{backgroundColor: "rgba(33, 37, 41, 0.85)"}} fixed="top" expand="md">
         <Container className="text-end">
         <Navbar.Brand style={{color: "#7554A3", fontSize: "1.5em" }} href="/">Mindi's Jokers!</Navbar.Brand>
         <Navbar.Toggle className="shadow-none" style={{ backgroundColor: "#7554A3"}}/>
-        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Collapse style={{fontSize: "1.2em"}} className="p-1 justify-content-end">
           <Nav >
-            {!checking  && loggedIn && <Nav.Link style={{color: "#7554A3"}}  href="/upload">Upload</Nav.Link>}
+            {!checking  && loggedIn && <Nav.Link style={{color: "#7554A3"}} href="/upload">Upload</Nav.Link>}
             <Nav.Link style={{color: "#7554A3"}}  href="/login">Account</Nav.Link>
-            <Nav.Link style={{color: "#7554A3"}} href="/stats">Stats</Nav.Link>
+            <Nav.Link style={{color: "#7554A3"}}  href="/stats">Stats</Nav.Link>
           </Nav>
           </Navbar.Collapse>
         </Container>

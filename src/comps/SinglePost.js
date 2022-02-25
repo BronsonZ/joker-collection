@@ -47,13 +47,13 @@ const SinglePost = () => {
           Go Back
         </Button>
         <h1>{post.name}</h1>
-        <h3 className="mb-0">{post.desc}</h3>
-        <h3>Cost: ${post.price}</h3>
+        <h3 className="mb-1">{post.desc}</h3>
+        {post.price > 0 && <h3>Cost: ${post.price}</h3>}
         {!loaded && (
           <ScaleLoader height={200} width={10} margin={10} color="#058759" />
         )}
         <Image
-          className="mb-3"
+          className="mb-3 mt-2"
           style={{ maxHeight: "850px" }}
           fluid
           rounded

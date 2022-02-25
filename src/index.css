@@ -2,3 +2,6 @@
 * {
     font-family: 'Oswald', sans-serif;
 }
+body {
+    padding-top: 60px;
+}
