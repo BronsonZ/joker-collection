@@ -6,10 +6,6 @@ import NotFound from "./comps/NotFound";
 import { Routes, Route } from "react-router-dom";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BsFillPlusCircleFill as PlusCircle } from "react-icons/bs"
-import { MdQueryStats as StatsIcon } from "react-icons/md"
-import { IconContext } from "react-icons";
-import { IoPersonAdd } from "react-icons/io5"
 import LoginPage from "./comps/LoginPage";
 import useLoginCheck from "./hooks/useLoginCheck";
 
@@ -18,19 +14,20 @@ function App() {
   const { loggedIn, checking } = useLoginCheck();
 
   return (
-    <div className="bg-dark text-success" >
-      <IconContext.Provider value={{color: "#7554A3", size: "1.5em" }}>
-      <Navbar bg="dark" variant="dark" sticky="top">
-        <Container>
+    <div className="text-success" >
+      <Navbar sticky="top" bg="dark" expand="md">
+        <Container className="text-end">
         <Navbar.Brand style={{color: "#7554A3", fontSize: "1.5em" }} href="/">Mindi's Jokers!</Navbar.Brand>
-          <Nav>
-            {!checking  && loggedIn && <Nav.Link  href="/upload"><PlusCircle/></Nav.Link>}
-            <Nav.Link  href="/login"><IoPersonAdd/></Nav.Link>
-            <Nav.Link href="/stats"><StatsIcon/></Nav.Link>
+        <Navbar.Toggle className="shadow-none" style={{ backgroundColor: "#7554A3"}}/>
+        <Navbar.Collapse className="justify-content-end">
+          <Nav >
+            {!checking  && loggedIn && <Nav.Link style={{color: "#7554A3"}}  href="/upload">Upload</Nav.Link>}
+            <Nav.Link style={{color: "#7554A3"}}  href="/login">Account</Nav.Link>
+            <Nav.Link style={{color: "#7554A3"}} href="/stats">Stats</Nav.Link>
           </Nav>
+          </Navbar.Collapse>
         </Container>
       </Navbar>
-      </IconContext.Provider>
 
       <Routes>
         <Route path="/" element={<Home />} />

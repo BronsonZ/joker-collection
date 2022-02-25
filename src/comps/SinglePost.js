@@ -6,7 +6,6 @@ import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import useLoginCheck from "../hooks/useLoginCheck";
-import ClipLoader from "react-spinners/ClipLoader";
 import ScaleLoader from "react-spinners/ScaleLoader";
 
 const SinglePost = () => {
@@ -90,7 +89,7 @@ const SinglePost = () => {
         )}
         {deleting && (
           <Modal.Body>
-            <ClipLoader size={60} />
+            <ScaleLoader height={150} width={10} margin={10} />
             <p className="mb-0">Deleting...</p>
           </Modal.Body>
         )}
