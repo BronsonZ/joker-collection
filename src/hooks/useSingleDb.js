@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { doc, getDoc, } from "firebase/firestore";
 import { db } from "../firebase/config";
 
-const useSingleDb = (id) => {
+const useSingleDb = (id, folder) => {
   const [post, setPost] = useState([]);
 
   useEffect(() => {
     const abort = new AbortController();
     const getData = async (id) => {
-        const docRef = doc(db, "jokers", id);
+        const docRef = doc(db, folder, id);
         const docSnap = await getDoc(docRef);
         
         if (docSnap.exists()) {
@@ -21,7 +21,7 @@ const useSingleDb = (id) => {
     return () => {
       abort.abort()
     }
-  }, [id]);
+  }, [id, folder]);
 
   return { post };
 };

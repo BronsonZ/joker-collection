@@ -4,7 +4,7 @@ import { Container, Table } from "react-bootstrap"
 import { Link } from "react-router-dom";
 
 const Stats = () => {
-    const { posts: allJokers, loading: loadingAll } = useDb("");
+    const { posts: allJokers, loading: loadingAll } = useDb(false, "jokers");
     const { filtered: popJokers} = useFilter(allJokers, "pop");
     const { filtered: fJokers} = useFilter(allJokers, "figurine");
     const { filtered: keychainJokers} = useFilter(allJokers, "keychain");

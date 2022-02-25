@@ -26,6 +26,7 @@ const UploadForm = () => {
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [tempUrl, setTempUrl] = useState("");
+  const [wishlist, setWishlist ] = useState(false);
 
   const imageCheck = (e) => {
     let file = e.target.files[0];
@@ -43,8 +44,10 @@ const UploadForm = () => {
 
   const uploadImage = () => {
     if (image && JSON.stringify(image.type).includes("image")) {
+      let folder;
+      wishlist ? folder="wishlistImages" : folder="images"
       const uuid = uuidv4();
-      const storageRef = ref(projectStorage, `/images/${uuid}`);
+      const storageRef = ref(projectStorage, `/${folder}/${uuid}`);
       const uploadTask = uploadBytesResumable(storageRef, image);
 
       uploadTask.on(
@@ -72,6 +75,8 @@ const UploadForm = () => {
   };
 
   const uploadPost = async (imageUrl, uuid) => {
+    let folder;
+    wishlist ? folder="wishlistJokers" : folder="jokers"
     let joker;
     if (!price) {
       joker = { name, imageUrl, desc, category, price: 0, uuid };
@@ -79,12 +84,13 @@ const UploadForm = () => {
       joker = { name, imageUrl, desc, category, price, uuid };
     }
     try {
-      await addDoc(collection(db, "jokers"), joker);
+      await addDoc(collection(db, folder), joker);
     } catch (err) {
       alert(err.message);
     }
 
     setUploading(false);
+    setWishlist(false);
     setName("");
     setImage("");
     setTempUrl("");
@@ -187,7 +193,9 @@ const UploadForm = () => {
               value={price}
             />
           </InputGroup>
-
+          <Form.Group >
+            <Form.Check className="text-start" name="wishlist" checked={wishlist} label="Wishlist?" onChange={(e)=> setWishlist(e.target.checked)}/>
+          </Form.Group>
           <Button className="mb-5" variant="success" type="submit">
             Submit
           </Button>

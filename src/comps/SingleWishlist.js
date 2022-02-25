@@ -8,11 +8,11 @@ import { getStorage, ref, deleteObject } from "firebase/storage";
 import useLoginCheck from "../hooks/useLoginCheck";
 import ScaleLoader from "react-spinners/ScaleLoader";
 
-const SinglePost = () => {
+const SingleWishlist = () => {
   const { loggedIn, checking } = useLoginCheck();
   const navigate = useNavigate();
   const { id } = useParams();
-  const { post } = useSingleDb(id, "jokers");
+  const { post } = useSingleDb(id, "wishlistJokers");
   const [show, setShow] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -20,9 +20,9 @@ const SinglePost = () => {
   const handleClose = () => setShow(false);
 
   const handleDelete = async () => {
-    await deleteDoc(doc(db, "jokers", id));
+    await deleteDoc(doc(db, "wishlistJokers", id));
     const storage = getStorage();
-    const desertRef = ref(storage, `/images/${post.uuid}`);
+    const desertRef = ref(storage, `/wishlistImages/${post.uuid}`);
 
     deleteObject(desertRef)
       .then(() => {
@@ -48,7 +48,7 @@ const SinglePost = () => {
         </Button>
         <h1>{post.name}</h1>
         <h3 className="mb-1">{post.desc}</h3>
-        {post.price > 0 && <h3>Cost: ${post.price}</h3>}
+        {post.price > 0 && <h3>Price: ${post.price}</h3>}
         {!loaded && (
           <ScaleLoader height={200} width={10} margin={10} color="#058759" />
         )}
@@ -114,4 +114,4 @@ const SinglePost = () => {
   );
 };
 
-export default SinglePost;
+export default SingleWishlist;

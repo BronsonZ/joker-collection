@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { collection, query, getDocs, where } from "firebase/firestore";
 import { db } from "../firebase/config";
 
-const useDb = (filter) => {
+const useDb = (filter, folder) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -14,9 +14,9 @@ const useDb = (filter) => {
         let q;
 
         if(filter){
-            q = query(collection(db, "jokers"), where("category", "==", filter));
+            q = query(collection(db, folder), where("category", "==", filter));
         } else {
-            q = query(collection(db, "jokers"));
+            q = query(collection(db, folder));
         }
       
 
@@ -34,7 +34,7 @@ const useDb = (filter) => {
     return () => {
       abort.abort()
     }
-  }, [filter]);
+  }, [filter, folder]);
 
   return { loading, posts };
 };

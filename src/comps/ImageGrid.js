@@ -43,7 +43,7 @@ const ImageGrid = () => {
     }
   }, [filter])
 
-  const { posts: unFiltered } = useDb();
+  const { posts: unFiltered } = useDb(false, "jokers");
   const { filtered } = useFilter(unFiltered, filter);
   return (
     <Container className="mt-3 text-center">
