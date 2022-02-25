@@ -5,7 +5,6 @@ import {
   Container,
   Row,
   Col,
-  Image,
   ButtonGroup,
   DropdownButton,
   Dropdown,
@@ -15,10 +14,33 @@ import useFilter from "../hooks/useFilter";
 import LazyLoad from "react-lazyload";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import useQueryString from "../hooks/useQueryString";
+import {Cloudinary} from "@cloudinary/url-gen";
+import {AdvancedImage, lazyload, placeholder } from '@cloudinary/react';
+import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
 
 const ImageGrid = () => {
   const [filter, setFilter] = useQueryString("", "");
   const [title, setTitle] = useState("All Jokers");
+
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: 'dar0pitop'
+    }
+  });
+
+  const createImageUrl = (id) => {
+  
+    const myImage = cld.image(id);
+
+    myImage
+    .roundCorners(byRadius(20))
+    .quality('auto')
+    .format('webp')
+
+    return myImage;
+  }
+
+  
 
   useEffect(()=>{
     switch(filter){
@@ -112,7 +134,7 @@ const ImageGrid = () => {
         </DropdownButton>
       </ButtonGroup>
 
-      <Row xs="2" sm="2" md="3" lg="4" xl="5" xxl="6">
+      <Row xs="1" sm="2" md="3" lg="4" xl="5" xxl="6">
         {filtered &&
           filtered.map((post) => (
             <Col className="text-wrap p-1" key={post.id}>
@@ -120,19 +142,7 @@ const ImageGrid = () => {
                 className="text-decoration-none text-reset"
                 to={`/jokers/${post.id}`}
               >
-                <LazyLoad
-                  once={true}
-                  placeholder={
-                    <ScaleLoader
-                      height={200}
-                      width={10}
-                      margin={10}
-                      color="#058759"
-                    />
-                  }
-                >
-                  <Image rounded src={post.imageUrl} className="w-100" />
-                </LazyLoad>
+                <AdvancedImage width="100%" cldImg={createImageUrl(post.img)} />
               </Link>
             </Col>
           ))}
