@@ -19,7 +19,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-const appCheck = initializeAppCheck(app, {
+export const appCheck = initializeAppCheck(app, {
   provider: new ReCaptchaV3Provider('6LcQI54eAAAAACrR0QOk2imk4ZXfXGAApbAAdksc'),
   isTokenAutoRefreshEnabled: true
 });
