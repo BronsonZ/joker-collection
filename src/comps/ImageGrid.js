@@ -14,6 +14,9 @@ import useFilter from "../hooks/useFilter";
 import useQueryString from "../hooks/useQueryString";
 import {Cloudinary} from "@cloudinary/url-gen";
 import { AdvancedImage, lazyload, placeholder } from '@cloudinary/react';
+import { fill } from "@cloudinary/url-gen/actions/resize";
+import { dpr } from "@cloudinary/url-gen/actions/delivery";
+import { autoGravity } from "@cloudinary/url-gen/qualifiers/gravity";
 
 const ImageGrid = () => {
   const [filter, setFilter] = useQueryString("", "");
@@ -32,6 +35,8 @@ const ImageGrid = () => {
     myImage
     .quality('auto')
     .format('webp')
+    .resize(fill().width(500).height(700).gravity(autoGravity()))
+    .delivery(dpr('auto'))
 
     return myImage;
   }
@@ -137,7 +142,7 @@ const ImageGrid = () => {
                 className="text-decoration-none text-reset"
                 to={`/jokers/${post.id}`}
               >
-                <AdvancedImage width="100%" height="350px" style={{objectFit: "cover"}} cldImg={createImageUrl(post.imageId)} plugins={[lazyload(), placeholder({mode: 'blur'})]}/>
+                <AdvancedImage style={{objectFit: "cover", height: "300px", width: "100%"}} cldImg={createImageUrl(post.imageId)} plugins={[lazyload(), placeholder({mode: 'blur'})]}/>
               </Link>
             </Col>
           ))}

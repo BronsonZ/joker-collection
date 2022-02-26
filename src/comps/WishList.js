@@ -8,6 +8,9 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Cloudinary} from "@cloudinary/url-gen";
 import { AdvancedImage, lazyload, placeholder } from '@cloudinary/react';
+import { fill } from "@cloudinary/url-gen/actions/resize";
+import { autoGravity } from "@cloudinary/url-gen/qualifiers/gravity";
+import { dpr } from "@cloudinary/url-gen/actions/delivery";
 
 const WishList = () => {
   const { posts } = useDb(false, "wishlistJokers");
@@ -25,6 +28,8 @@ const WishList = () => {
     myImage
     .quality('auto')
     .format('webp')
+    .resize(fill().width(500).height(700).gravity(autoGravity()))
+    .delivery(dpr('auto'))
 
     return myImage;
   }
@@ -41,7 +46,7 @@ const WishList = () => {
                 className="text-decoration-none text-reset"
                 to={`/wishlist/${post.id}`}
               >
-                <AdvancedImage width="100%" height="300px" style={{objectFit: "cover"}} cldImg={createImageUrl(post.imageId)} plugins={[lazyload(), placeholder({mode: 'blur'})]}/>
+                <AdvancedImage style={{objectFit: "cover", height: "350px", width: "100%"}} cldImg={createImageUrl(post.imageId)} plugins={[lazyload(), placeholder({mode: 'blur'})]}/>
               </Link>
             </Col>
           ))}
