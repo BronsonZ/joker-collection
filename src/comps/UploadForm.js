@@ -2,9 +2,6 @@ import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { FloatingLabel, ProgressBar } from "react-bootstrap";
-import { projectStorage } from "../firebase/config";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { v4 as uuidv4 } from "uuid";
 import useLoginCheck from "../hooks/useLoginCheck";
 import {
   Form,
@@ -44,29 +41,27 @@ const UploadForm = () => {
 
   const uploadImage = () => {
     if (image && JSON.stringify(image.type).includes("image")) {
-      let folder;
-      wishlist ? folder="wishlistImages" : folder="images"
-      const uuid = uuidv4();
-      const storageRef = ref(projectStorage, `/${folder}/${uuid}`);
-      const uploadTask = uploadBytesResumable(storageRef, image);
+      let preset;
+      wishlist ? preset="wishlist" : preset="jokerImages"
 
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-          setProgress(progress);
-        },
-        (err) => {
-          alert(err.message);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((imageUrl) => {
-            uploadPost(imageUrl, uuid);
-          });
+    let formData = new FormData();
+    formData.append("file", image);
+    formData.append("upload_preset", preset);
+
+    fetch("https://api.cloudinary.com/v1_1/dar0pitop/upload", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => {
+        if (!res.ok) {
+          alert("Error uploading image");
+          return null;
         }
-      );
+        return res.json();
+      })
+      .then((data) => {
+        uploadPost(data.public_id);
+      })
     } else {
       setImage("");
       setUploading(false);
@@ -74,14 +69,14 @@ const UploadForm = () => {
     }
   };
 
-  const uploadPost = async (imageUrl, uuid) => {
+  const uploadPost = async (imageId) => {
     let folder;
     wishlist ? folder="wishlistJokers" : folder="jokers"
     let joker;
     if (!price) {
-      joker = { name, imageUrl, desc, category, price: 0, uuid };
+      joker = { name, imageId, desc, category, price: 0 };
     } else {
-      joker = { name, imageUrl, desc, category, price, uuid };
+      joker = { name, imageId, desc, category, price };
     }
     try {
       await addDoc(collection(db, folder), joker);

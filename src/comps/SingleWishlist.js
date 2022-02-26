@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { Container, Image, Button, Row, Col, Modal } from "react-bootstrap";
+import { Container, Button, Row, Col, Modal } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import useSingleDb from "../hooks/useSingleDb";
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
-import { getStorage, ref, deleteObject } from "firebase/storage";
 import useLoginCheck from "../hooks/useLoginCheck";
 import ScaleLoader from "react-spinners/ScaleLoader";
+import { Cloudinary } from "@cloudinary/url-gen";
+import { AdvancedImage } from '@cloudinary/react';
 
 const SingleWishlist = () => {
   const { loggedIn, checking } = useLoginCheck();
@@ -17,22 +18,30 @@ const SingleWishlist = () => {
   const [deleting, setDeleting] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: 'dar0pitop'
+    }
+  });
+
+  const createImageUrl = (id) => {
+  
+    const myImage = cld.image(id);
+
+    myImage
+    .quality('auto')
+    .format('webp')
+
+    return myImage;
+  }
+
   const handleClose = () => setShow(false);
 
   const handleDelete = async () => {
     await deleteDoc(doc(db, "wishlistJokers", id));
-    const storage = getStorage();
-    const desertRef = ref(storage, `/wishlistImages/${post.uuid}`);
 
-    deleteObject(desertRef)
-      .then(() => {
-        setDeleting(false);
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log(error);
-        alert(error);
-      });
+    setDeleting(false);
+    navigate("/");
   };
   return (
     <>
@@ -52,16 +61,7 @@ const SingleWishlist = () => {
         {!loaded && (
           <ScaleLoader height={200} width={10} margin={10} color="#058759" />
         )}
-        <Image
-          className="mb-3 mt-2"
-          style={{ maxHeight: "850px" }}
-          fluid
-          rounded
-          src={post.imageUrl}
-          onLoad={() => {
-            setLoaded(true);
-          }}
-        />
+        <AdvancedImage className="mb-3 mt-2" style={{ maxHeight: "850px" }} cldImg={createImageUrl(post.imageId)} onLoad={()=>setLoaded(true)} />
         <Row className="mb-5 mt-3">
           <Col>
             {!checking && loggedIn && (

@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore"
 import {initializeAuth, indexedDBLocalPersistence, browserLocalPersistence, browserSessionPersistence} from "firebase/auth"
 const { initializeAppCheck, ReCaptchaV3Provider } = require("firebase/app-check");
@@ -31,7 +30,5 @@ export const auth = initializeAuth(app, {
      browserSessionPersistence
    ],
  });
-
-export const projectStorage = getStorage(app);
 
 export const db = getFirestore(app);
