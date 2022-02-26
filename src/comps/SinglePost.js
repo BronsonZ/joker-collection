@@ -57,7 +57,7 @@ const SinglePost = () => {
         <h1>{post.name}</h1>
         <h3 className="mb-1">{post.desc}</h3>
         {post.price > 0 && <h3>Cost: ${post.price}</h3>}
-        <AdvancedImage className="mb-3 mt-2" style={{ maxHeight: "850px", maxWidth: "75%" }} cldImg={createImageUrl(post.imageId)} />
+        <AdvancedImage className="mb-3 mt-2" style={{ maxHeight: "850px", maxWidth: "100%" }} cldImg={createImageUrl(post.imageId)} />
         <Row className="mb-5 mt-3">
           <Col>
             {!checking && loggedIn && (
