@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore"
 import {initializeAuth, indexedDBLocalPersistence, browserLocalPersistence, browserSessionPersistence} from "firebase/auth"
 const { initializeAppCheck, ReCaptchaV3Provider } = require("firebase/app-check");
@@ -19,8 +18,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-
-window.self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
 export const appCheck = initializeAppCheck(app, {
   provider: new ReCaptchaV3Provider('6LcQI54eAAAAACrR0QOk2imk4ZXfXGAApbAAdksc'),
   isTokenAutoRefreshEnabled: true
@@ -33,7 +30,5 @@ export const auth = initializeAuth(app, {
      browserSessionPersistence
    ],
  });
-
-export const projectStorage = getStorage(app);
 
 export const db = getFirestore(app);

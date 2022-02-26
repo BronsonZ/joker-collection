@@ -11,12 +11,9 @@ import {
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import useFilter from "../hooks/useFilter";
-import LazyLoad from "react-lazyload";
-import ScaleLoader from "react-spinners/ScaleLoader";
 import useQueryString from "../hooks/useQueryString";
 import {Cloudinary} from "@cloudinary/url-gen";
-import {AdvancedImage, lazyload, placeholder } from '@cloudinary/react';
-import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
+import { AdvancedImage, lazyload, placeholder } from '@cloudinary/react';
 
 const ImageGrid = () => {
   const [filter, setFilter] = useQueryString("", "");
@@ -33,13 +30,11 @@ const ImageGrid = () => {
     const myImage = cld.image(id);
 
     myImage
-    .roundCorners(byRadius(20))
     .quality('auto')
     .format('webp')
 
     return myImage;
   }
-
   
 
   useEffect(()=>{
@@ -134,7 +129,7 @@ const ImageGrid = () => {
         </DropdownButton>
       </ButtonGroup>
 
-      <Row xs="1" sm="2" md="3" lg="4" xl="5" xxl="6">
+      <Row xs="2" sm="2" md="3" lg="4" xl="5" xxl="6">
         {filtered &&
           filtered.map((post) => (
             <Col className="text-wrap p-1" key={post.id}>
@@ -142,7 +137,7 @@ const ImageGrid = () => {
                 className="text-decoration-none text-reset"
                 to={`/jokers/${post.id}`}
               >
-                <AdvancedImage width="100%" cldImg={createImageUrl(post.img)} />
+                <AdvancedImage width="100%" height="300px" style={{objectFit: "cover"}} cldImg={createImageUrl(post.imageId)} plugins={[lazyload(), placeholder({mode: 'blur'})]}/>
               </Link>
             </Col>
           ))}
