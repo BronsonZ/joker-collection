@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Container, Button, Row, Col, Modal } from "react-bootstrap";
+import { Container, Button, Row, Col, Modal, Spinner } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import useSingleDb from "../hooks/useSingleDb";
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
 import useLoginCheck from "../hooks/useLoginCheck";
-import ScaleLoader from "react-spinners/ScaleLoader";
 import { Cloudinary } from "@cloudinary/url-gen";
 import { AdvancedImage } from '@cloudinary/react';
 
@@ -16,7 +15,6 @@ const SingleWishlist = () => {
   const { post } = useSingleDb(id, "wishlistJokers");
   const [show, setShow] = useState(false);
   const [deleting, setDeleting] = useState(false);
-  const [loaded, setLoaded] = useState(false);
 
   const cld = new Cloudinary({
     cloud: {
@@ -58,10 +56,7 @@ const SingleWishlist = () => {
         <h1>{post.name}</h1>
         <h3 className="mb-1">{post.desc}</h3>
         {post.price > 0 && <h3>Price: ${post.price}</h3>}
-        {!loaded && (
-          <ScaleLoader height={200} width={10} margin={10} color="#058759" />
-        )}
-        <AdvancedImage className="mb-3 mt-2" style={{ maxHeight: "850px" }} cldImg={createImageUrl(post.imageId)} onLoad={()=>setLoaded(true)} />
+        <AdvancedImage className="mb-3 mt-2" style={{ maxHeight: "850px" }} cldImg={createImageUrl(post.imageId)} />
         <Row className="mb-5 mt-3">
           <Col>
             {!checking && loggedIn && (
@@ -89,7 +84,7 @@ const SingleWishlist = () => {
         )}
         {deleting && (
           <Modal.Body>
-            <ScaleLoader height={150} width={10} margin={10} />
+            <Spinner className="mt-3" animation="border" />
             <p className="mb-0">Deleting...</p>
           </Modal.Body>
         )}
