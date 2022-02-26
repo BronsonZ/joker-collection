@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
-import { FloatingLabel, ProgressBar } from "react-bootstrap";
+import { FloatingLabel } from "react-bootstrap";
 import useLoginCheck from "../hooks/useLoginCheck";
 import {
   Form,
@@ -10,6 +10,7 @@ import {
   InputGroup,
   FormControl,
   Image,
+  Spinner
 } from "react-bootstrap";
 
 const UploadForm = () => {
@@ -21,7 +22,6 @@ const UploadForm = () => {
   const [image, setImage] = useState("");
   const [category, setCategory] = useState("other");
   const [uploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState(0);
   const [tempUrl, setTempUrl] = useState("");
   const [wishlist, setWishlist ] = useState(false);
 
@@ -92,7 +92,6 @@ const UploadForm = () => {
     setDesc("");
     setPrice("");
     setCategory("");
-    setProgress(0);
     window.location.reload();
   };
 
@@ -114,13 +113,10 @@ const UploadForm = () => {
             </div>
           )}
           {uploading && (
-            <ProgressBar
-              animated
-              variant="success"
-              label={`${progress}%`}
-              className="mt-3"
-              now={progress}
-            />
+            <>
+            <Spinner className="mt-3" animation="border" variant="success" />
+            <p className="mb-0">Uploading...</p>
+            </>
           )}
           <Form.Group className="mt-4 mb-3">
             <Form.Control

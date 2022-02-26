@@ -1,4 +1,3 @@
-import Home from "./comps/Home";
 import SinglePost from "./comps/SinglePost";
 import Stats from "./comps/Stats";
 import UploadForm from "./comps/UploadForm.js";
@@ -10,6 +9,7 @@ import LoginPage from "./comps/LoginPage";
 import useLoginCheck from "./hooks/useLoginCheck";
 import WishList from "./comps/WishList";
 import SingleWishlist from "./comps/SingleWishlist";
+import ImageGrid from "./comps/ImageGrid";
 
 function App() {
 
@@ -33,7 +33,7 @@ function App() {
       </Navbar>
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<ImageGrid />} />
         <Route path="/upload" element={<UploadForm />} />
         <Route path="/stats" element={<Stats />} />
         <Route path="/jokers/:id" element={<SinglePost />} />

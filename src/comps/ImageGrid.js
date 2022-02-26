@@ -129,7 +129,7 @@ const ImageGrid = () => {
         </DropdownButton>
       </ButtonGroup>
 
-      <Row xs="2" sm="2" md="3" lg="4" xl="5" xxl="6">
+      <Row xs="2" sm="2" md="3" lg="3" xl="4" xxl="4">
         {filtered &&
           filtered.map((post) => (
             <Col className="text-wrap p-1" key={post.id}>
@@ -137,7 +137,7 @@ const ImageGrid = () => {
                 className="text-decoration-none text-reset"
                 to={`/jokers/${post.id}`}
               >
-                <AdvancedImage width="100%" height="300px" style={{objectFit: "cover"}} cldImg={createImageUrl(post.imageId)} plugins={[lazyload(), placeholder({mode: 'blur'})]}/>
+                <AdvancedImage width="100%" height="350px" style={{objectFit: "cover"}} cldImg={createImageUrl(post.imageId)} plugins={[lazyload(), placeholder({mode: 'blur'})]}/>
               </Link>
             </Col>
           ))}
