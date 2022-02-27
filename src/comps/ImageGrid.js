@@ -35,7 +35,7 @@ const ImageGrid = () => {
     myImage
     .quality('auto')
     .format('webp')
-    .resize(fill().width(500).height(700).gravity(autoGravity()))
+    .resize(fill().width(500).height(700))
     .delivery(dpr('auto'))
 
     return myImage;
