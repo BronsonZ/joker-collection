@@ -1,4 +1,4 @@
-import { AdvancedImage, lazyload, placeholder } from "@cloudinary/react"
+import { AdvancedImage, lazyload } from "@cloudinary/react"
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { createImageUrl } from "../utils/CloudinaryFunctions"
@@ -13,7 +13,7 @@ const ImageGrid = ({posts, folder}) => {
                 className="text-decoration-none text-reset"
                 to={`/${folder}/${post.id}`}
               >
-                <AdvancedImage style={{objectFit: "cover", height: "300px", width: "100%"}} cldImg={createImageUrl(post.imageId)} plugins={[lazyload(), placeholder({mode: 'blur'})]}/>
+                <AdvancedImage style={{objectFit: "cover", height: "300px", width: "100%"}} cldImg={createImageUrl(post.imageId)} plugins={[lazyload()]}/>
               </Link>
             </Col>
           ))}
