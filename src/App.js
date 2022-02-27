@@ -9,11 +9,11 @@ import LoginPage from "./comps/LoginPage";
 import useLoginCheck from "./hooks/useLoginCheck";
 import WishList from "./comps/WishList";
 import SingleWishlist from "./comps/SingleWishlist";
-import ImageGrid from "./comps/ImageGrid";
+import Home from "./comps/Home";
 
 function App() {
 
-  const { loggedIn, checking } = useLoginCheck();
+  const { loggedIn, checking, user } = useLoginCheck();
 
   return (
     <div className="text-success" >
@@ -33,12 +33,12 @@ function App() {
       </Navbar>
 
       <Routes>
-        <Route path="/" element={<ImageGrid />} />
-        <Route path="/upload" element={<UploadForm />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/upload" element={<UploadForm loggedIn={loggedIn} checking={checking}/>} />
         <Route path="/stats" element={<Stats />} />
-        <Route path="/jokers/:id" element={<SinglePost />} />
-        <Route path="/wishlist/:id" element={<SingleWishlist />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/jokers/:id" element={<SinglePost loggedIn={loggedIn} checking={checking} />} />
+        <Route path="/wishlist/:id" element={<SingleWishlist loggedIn={loggedIn} checking={checking} />} />
+        <Route path="/login" element={<LoginPage loggedIn={loggedIn} checking={checking} user={user} />} />
         <Route path="/wishlist" element={<WishList />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>

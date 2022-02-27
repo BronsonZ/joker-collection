@@ -6,13 +6,11 @@ import {
 import { auth } from "../firebase/config";
 import { Form, Container, Button, FloatingLabel } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import useLoginCheck from "../hooks/useLoginCheck";
 
-const LoginPage = () => {
+const LoginPage = ({loggedIn, checking, user}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { loggedIn, checking, user } = useLoginCheck();
 
   const login = async () => {
     try {

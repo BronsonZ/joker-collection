@@ -2,7 +2,6 @@ import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { FloatingLabel } from "react-bootstrap";
-import useLoginCheck from "../hooks/useLoginCheck";
 import {
   Form,
   Container,
@@ -12,9 +11,9 @@ import {
   Image,
   Spinner
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-const UploadForm = () => {
-  const { loggedIn, checking } = useLoginCheck(true);
+const UploadForm = ({loggedIn, checking}) => {
 
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
@@ -103,6 +102,12 @@ const UploadForm = () => {
 
   return (
     <Container className="text-center">
+      { !checking && !loggedIn && (
+        <>
+        <h1>You are not logged in!</h1>
+        <Link className="text-reset" to="/login">Login Page</Link>
+        </>
+      )}
       { !checking && loggedIn  && (
         <Form onSubmit={handleSubmit}>
           <h1> Upload a new Joker! </h1>
