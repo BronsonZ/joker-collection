@@ -13,10 +13,9 @@ export const createImageUrl = (id) => {
     const myImage = cld.image(id);
 
     myImage
-    .quality('auto')
+    .quality(50)
     .format('webp')
     .resize(fill().width(500).height(700))
-    .delivery(dpr('auto'))
 
     return myImage;
 }
@@ -26,9 +25,8 @@ export const createSingleImageUrl = (id) => {
     const myImage = cld.image(id);
 
     myImage
-    .quality('auto')
+    .quality(90)
     .format('webp')
-    .delivery(dpr('auto'))
 
     return myImage;
 }
