@@ -1,4 +1,3 @@
-import SinglePost from "./comps/SinglePost";
 import Stats from "./comps/Stats";
 import UploadForm from "./comps/UploadForm.js";
 import NotFound from "./comps/NotFound";
@@ -8,7 +7,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import LoginPage from "./comps/LoginPage";
 import useLoginCheck from "./hooks/useLoginCheck";
 import WishList from "./comps/WishList";
-import SingleWishlist from "./comps/SingleWishlist";
 import Home from "./comps/Home";
 
 function App() {
@@ -33,13 +31,11 @@ function App() {
       </Navbar>
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home loggedIn={loggedIn} checking={checking}/>} />
         <Route path="/upload" element={<UploadForm loggedIn={loggedIn} checking={checking}/>} />
         <Route path="/stats" element={<Stats />} />
-        <Route path="/jokers/:id" element={<SinglePost loggedIn={loggedIn} checking={checking} />} />
-        <Route path="/wishlist/:id" element={<SingleWishlist loggedIn={loggedIn} checking={checking} />} />
         <Route path="/login" element={<LoginPage loggedIn={loggedIn} checking={checking} user={user} />} />
-        <Route path="/wishlist" element={<WishList />} />
+        <Route path="/wishlist" element={<WishList loggedIn={loggedIn} checking={checking}/>} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
       </div>
