@@ -21,8 +21,8 @@ const ImageGrid = ({posts, loggedIn, checking, folder}) => {
         <Row xs="2" sm="2" md="3" lg="3" xl="4" xxl="4">
         {posts &&
           posts.map((post) => (
-            <Col className="text-wrap p-1" key={post.id} onClick={()=>handleShow(post.id)} >
-                <AdvancedImage style={{objectFit: "cover", height: "300px", width: "100%"}} cldImg={createImageUrl(post.imageId)} plugins={[lazyload()]}/>
+            <Col className="text-wrap p-1"  key={post.id} onClick={()=>handleShow(post.id)} >
+                <AdvancedImage style={{objectFit: "cover", height: "300px", width: "100%", cursor: "pointer"}} cldImg={createImageUrl(post.imageId)} plugins={[lazyload()]}/>
             </Col>
           ))}
       </Row>

@@ -35,7 +35,7 @@ const SingleImage = ({post, handleDelete, loggedIn, checking, deleting, setDelet
         <h3 className="mb-1">{post.desc}</h3>
         {post.price > 0 && <h3>Cost: ${post.price}</h3>}
         
-        <AdvancedImage className="mb-3 mt-2" style={{ maxHeight: "100%" ,  maxWidth: "100%" }} cldImg={createSingleImageUrl(post.imageId)} />
+        <AdvancedImage className="mb-3 mt-2" style={{ maxHeight: "70%" ,  maxWidth: "100%"}} cldImg={createSingleImageUrl(post.imageId)} />
           
       </Container>
 
