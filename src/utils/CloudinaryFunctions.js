@@ -1,6 +1,5 @@
 import {Cloudinary} from "@cloudinary/url-gen";
 import { fill } from "@cloudinary/url-gen/actions/resize";
-import { dpr } from "@cloudinary/url-gen/actions/delivery";
 
 const cld = new Cloudinary({
     cloud: {
@@ -13,7 +12,7 @@ export const createImageUrl = (id) => {
     const myImage = cld.image(id);
 
     myImage
-    .quality(50)
+    .quality(40)
     .format('webp')
     .resize(fill().width(500).height(700))
 
