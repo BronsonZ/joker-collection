@@ -13,7 +13,7 @@ import { useTitle } from "../hooks/useTitle";
 import ImageGrid from "./ImageGrid";
 
 
-const Home = () => {
+const Home = ({loggedIn, checking}) => {
   const [filter, setFilter] = useQueryString("", "");
   const [title, setTitle] = useState("All Jokers");
   
@@ -87,7 +87,7 @@ const Home = () => {
           </Dropdown.Item>
         </DropdownButton>
       </ButtonGroup>
-      <ImageGrid posts={filtered} folder="jokers"/>
+      <ImageGrid posts={filtered} folder="jokers" loggedIn={loggedIn} checking={checking}/>
     </Container>
   );
 };
