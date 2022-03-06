@@ -8,6 +8,7 @@ import LoginPage from "./comps/LoginPage";
 import useLoginCheck from "./hooks/useLoginCheck";
 import WishList from "./comps/WishList";
 import Home from "./comps/Home";
+import About from "./comps/About";
 
 function App() {
 
@@ -15,7 +16,7 @@ function App() {
 
   return (
     <div className="text-success" >
-      <Navbar style={{backgroundColor: "rgba(33, 37, 41, 0.90)"}} fixed="top" expand="md">
+      <Navbar style={{backgroundColor: "rgba(33, 37, 41, 0.90)"}} fixed="top" expand="lg">
         <Container className="text-end">
         <Navbar.Brand style={{color: "#7554A3", fontSize: "1.5em" }} href="/">Mindi's Jokers!</Navbar.Brand>
         <Navbar.Toggle className="shadow-none" style={{ backgroundColor: "#7554A3"}}/>
@@ -25,6 +26,7 @@ function App() {
             <Nav.Link style={{color: "#7554A3"}}  href="/login">Account</Nav.Link>
             <Nav.Link style={{color: "#7554A3"}}  href="/stats">Stats</Nav.Link>
             <Nav.Link style={{color: "#7554A3"}}  href="/wishlist">Wishlist</Nav.Link>
+            <Nav.Link style={{color: "#7554A3"}}  href="/about">About</Nav.Link>
           </Nav>
           </Navbar.Collapse>
         </Container>
@@ -36,6 +38,7 @@ function App() {
         <Route path="/stats" element={<Stats />} />
         <Route path="/login" element={<LoginPage loggedIn={loggedIn} checking={checking} user={user} />} />
         <Route path="/wishlist" element={<WishList loggedIn={loggedIn} checking={checking}/>} />
+        <Route path="/about" element={<About />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
       </div>
