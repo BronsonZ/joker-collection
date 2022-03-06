@@ -1,12 +1,13 @@
 import { AdvancedImage } from "@cloudinary/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button, Container, Modal, Spinner } from "react-bootstrap";
 import { createSingleImageUrl } from "../utils/CloudinaryFunctions";
+import { LoginContext } from "../Contexts/LoginContext"
 
 
-
-const SingleImage = ({post, handleDelete, loggedIn, checking, deleting, setDeleting, setShowImage, allowScroll}) => {
+const SingleImage = ({post, handleDelete, deleting, setDeleting, setShowImage, allowScroll}) => {
     const [show, setShow] = useState(false);
+    const {checking, loggedIn} = useContext(LoginContext);
 
     const handleClose = () => setShow(false);
     return (

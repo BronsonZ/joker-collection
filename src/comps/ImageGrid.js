@@ -5,7 +5,7 @@ import { useScrollBlock } from "../hooks/useScrollBlock";
 import { createImageUrl } from "../utils/CloudinaryFunctions"
 import SinglePost from "./SinglePost";
 
-const ImageGrid = ({posts, loggedIn, checking, folder}) => {
+const ImageGrid = ({posts, folder}) => {
   const [ show, setShow ] = useState(false);
   const [ showId, setShowId] = useState("");
   const [blockScroll, allowScroll] = useScrollBlock();
@@ -27,7 +27,7 @@ const ImageGrid = ({posts, loggedIn, checking, folder}) => {
           ))}
       </Row>
       {show && <div className="centered">
-      <SinglePost folder={folder} loggedIn={loggedIn} checking={checking} allowScroll={allowScroll}  id={showId} setShow={setShow} />
+      <SinglePost folder={folder} allowScroll={allowScroll}  id={showId} setShow={setShow} />
       </div>}
       
       </>

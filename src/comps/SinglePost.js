@@ -3,7 +3,7 @@ import useSingleDb from "../hooks/useSingleDb";
 import SingleImage from "./SingleImage";
 import { DeleteDoc } from "../utils/FirestoreFunctions";
 
-const SinglePost = ({  id, setShow, loggedIn, checking, allowScroll, folder }) => {
+const SinglePost = ({  id, setShow, allowScroll, folder }) => {
   const { post } = useSingleDb(id, folder);
   const [deleting, setDeleting] = useState(false);
   
@@ -17,8 +17,6 @@ const SinglePost = ({  id, setShow, loggedIn, checking, allowScroll, folder }) =
     <SingleImage
       post={post}
       handleDelete={handleDelete}
-      loggedIn={loggedIn}
-      checking={checking}
       deleting={deleting}
       setDeleting={setDeleting}
       setShowImage={setShow}

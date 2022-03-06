@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   signInWithEmailAndPassword,
   signOut,
@@ -6,11 +6,14 @@ import {
 import { auth } from "../firebase/config";
 import { Form, Container, Button, FloatingLabel } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { LoginContext } from "../Contexts/LoginContext";
 
-const LoginPage = ({loggedIn, checking, user}) => {
+const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  const {loggedIn, checking, user} = useContext(LoginContext);
 
   const login = async () => {
     try {

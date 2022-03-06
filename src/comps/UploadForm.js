@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { FloatingLabel } from "react-bootstrap";
@@ -12,8 +12,10 @@ import {
   Spinner
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { LoginContext } from "../Contexts/LoginContext";
 
-const UploadForm = ({loggedIn, checking}) => {
+const UploadForm = () => {
+  const {checking, loggedIn} = useContext(LoginContext);
 
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");

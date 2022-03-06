@@ -9,6 +9,8 @@ import useLoginCheck from "./hooks/useLoginCheck";
 import WishList from "./comps/WishList";
 import Home from "./comps/Home";
 import About from "./comps/About";
+import {LoginContext} from "./Contexts/LoginContext"
+
 
 function App() {
 
@@ -32,15 +34,17 @@ function App() {
         </Container>
       </Navbar>
 
+      <LoginContext.Provider value={{loggedIn, checking, user}}>
       <Routes>
-        <Route path="/" element={<Home loggedIn={loggedIn} checking={checking}/>} />
-        <Route path="/upload" element={<UploadForm loggedIn={loggedIn} checking={checking}/>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/upload" element={<UploadForm />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/wishlist" element={<WishList />} />
         <Route path="/stats" element={<Stats />} />
-        <Route path="/login" element={<LoginPage loggedIn={loggedIn} checking={checking} user={user} />} />
-        <Route path="/wishlist" element={<WishList loggedIn={loggedIn} checking={checking}/>} />
         <Route path="/about" element={<About />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
+      </LoginContext.Provider>
       </div>
   );
 }
