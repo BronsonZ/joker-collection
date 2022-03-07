@@ -1,19 +1,17 @@
 import { AdvancedImage, lazyload } from "@cloudinary/react"
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { useScrollBlock } from "../hooks/useScrollBlock";
+import { RemoveScroll } from "react-remove-scroll";
 import { createImageUrl } from "../utils/CloudinaryFunctions"
 import SinglePost from "./SinglePost";
 
 const ImageGrid = ({posts, folder}) => {
   const [ show, setShow ] = useState(false);
   const [ showId, setShowId] = useState("");
-  const [blockScroll, allowScroll] = useScrollBlock();
   const handleShow = (id) => {
     if(!show){
       setShow(true)
       setShowId(id)
-      blockScroll();
     }
   }
     return (
@@ -26,9 +24,7 @@ const ImageGrid = ({posts, folder}) => {
             </Col>
           ))}
       </Row>
-      {show && <div className="centered">
-      <SinglePost folder={folder} allowScroll={allowScroll}  id={showId} setShow={setShow} />
-      </div>}
+      {show && <RemoveScroll allowPinchZoom={true} removeScrollBar={false}><SinglePost folder={folder} id={showId} setShow={setShow} /></RemoveScroll> }
       
       </>
     )

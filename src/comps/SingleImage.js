@@ -1,43 +1,56 @@
 import { AdvancedImage } from "@cloudinary/react";
 import { useContext, useState } from "react";
-import { Button, Container, Modal, Spinner } from "react-bootstrap";
+import { Button, Col, Container, Modal, Row, Spinner } from "react-bootstrap";
 import { createSingleImageUrl } from "../utils/CloudinaryFunctions";
-import { LoginContext } from "../Contexts/LoginContext"
+import { LoginContext } from "../Contexts/LoginContext";
 
+const SingleImage = ({
+  post,
+  handleDelete,
+  deleting,
+  setDeleting,
+  setShowImage,
+}) => {
+  const [show, setShow] = useState(false);
+  const { checking, loggedIn } = useContext(LoginContext);
 
-const SingleImage = ({post, handleDelete, deleting, setDeleting, setShowImage, allowScroll}) => {
-    const [show, setShow] = useState(false);
-    const {checking, loggedIn} = useContext(LoginContext);
-
-    const handleClose = () => setShow(false);
-    return (
-        <>
-      <Container style={{width: "100%", height: "100%"}} className="mt-3 text-center text-wrap overflow-auto">
-      <Button
+  const handleClose = () => setShow(false);
+  return (
+    <>
+      <Container fluid className="text-center text-wrap overflow-auto centered">
+        <Row style={{paddingTop: "5em"}}>
+          <Col>
+          <Button
           variant="success"
-          className="mb-3 mx-3"
+          className="mb-1 mx-3"
           onClick={() => {
-            setShowImage(false)
-            allowScroll();
+            setShowImage(false);
+
           }}
         >
           Close
         </Button>
-            {!checking && loggedIn && (
-              <Button
-                className="shadow-none mb-3 px-3"
-                variant="danger"
-                onClick={() => setShow(true)}
-              >
-                Delete Joker
-              </Button>
-            )}
-        <h1>{post.name}</h1>
-        <h3 className="mb-1">{post.desc}</h3>
-        {post.price > 0 && <h3>Cost: ${post.price}</h3>}
+        {!checking && loggedIn && (
+          <Button
+            className="shadow-none mb-1 px-3"
+            variant="danger"
+            onClick={() => setShow(true)}
+          >
+            Delete Joker
+          </Button>
+        )}
+        <h2 className="mb-1">{post.name}</h2>
+        <h4 className="mb-0">{post.desc}</h4>
+        {post.price > 0 && <h3 className="mb-1">Cost: ${post.price}</h3>}
+
+          </Col>
+        </Row>
         
-        <AdvancedImage className="mb-3 mt-2" style={{ maxHeight: "70%" ,  maxWidth: "100%"}} cldImg={createSingleImageUrl(post.imageId)} />
-          
+        
+        <AdvancedImage
+          style={{ maxHeight: "70vh", maxWidth: "100%" }}
+          cldImg={createSingleImageUrl(post.imageId)}
+        />
       </Container>
 
       <Modal className="text-center" centered show={show} onHide={handleClose}>
@@ -73,7 +86,7 @@ const SingleImage = ({post, handleDelete, deleting, setDeleting, setShowImage, a
         </Modal.Footer>
       </Modal>
     </>
-    )
-}
+  );
+};
 
 export default SingleImage;
