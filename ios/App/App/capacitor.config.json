@@ -1,0 +1,6 @@
+{
+	"appId": "com.jokerbabies.app",
+	"appName": "joker-collection",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}
