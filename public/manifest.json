@@ -18,7 +18,7 @@
             "type": "image/png"
         }
     ],
-    "start_url": ".",
+    "start_url": "https://joker-babies.com/?=",
     "theme_color": "#212529",
     "background_color": "#212529",
     "display": "standalone"
