@@ -1,9 +1,10 @@
-import { AdvancedImage, lazyload } from "@cloudinary/react"
+import { AdvancedImage } from "@cloudinary/react"
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { RemoveScroll } from "react-remove-scroll";
 import { createImageUrl } from "../utils/CloudinaryFunctions"
 import SinglePost from "./SinglePost";
+import LazyLoad from 'react-lazyload';
 
 const ImageGrid = ({posts, folder}) => {
   const [ show, setShow ] = useState(false);
@@ -20,7 +21,9 @@ const ImageGrid = ({posts, folder}) => {
         {posts &&
           posts.map((post) => (
             <Col className="text-wrap p-1"  key={post.id} onClick={()=>handleShow(post.id)} >
-                <AdvancedImage style={{objectFit: "cover", height: "300px", width: "100%", cursor: "pointer"}} cldImg={createImageUrl(post.imageId)} plugins={[lazyload()]}/>
+              <LazyLoad height={360}>
+              <AdvancedImage style={{objectFit: "cover", height: "360px", width: "100%", cursor: "pointer"}} cldImg={createImageUrl(post.imageId)} />
+              </LazyLoad>
             </Col>
           ))}
       </Row>
