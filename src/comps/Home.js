@@ -87,7 +87,7 @@ const Home = () => {
           </Dropdown.Item>
         </DropdownButton>
       </ButtonGroup>
-      <ImageGrid posts={filtered} folder="jokers" />
+      <ImageGrid posts={filtered} folder="jokers" title={title}/>
     </Container>
   );
 };
