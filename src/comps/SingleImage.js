@@ -76,6 +76,7 @@ const SingleImage = ({
             onClick={() => {
               setDeleting(true);
               handleDelete();
+              setShowImage(false);
             }}
           >
             Yes
