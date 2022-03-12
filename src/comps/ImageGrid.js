@@ -36,6 +36,7 @@ const ImageGrid = ({ posts, folder, title }) => {
                     height: "360px",
                     width: "100%",
                     cursor: "pointer",
+                    borderRadius: "10px"
                   }}
                   cldImg={createImageUrl(post.imageId)}
                 />

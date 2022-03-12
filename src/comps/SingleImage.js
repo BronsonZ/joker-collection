@@ -55,7 +55,7 @@ const SingleImage = ({ id, setShowPost, folder }) => {
         </Row>
 
         <AdvancedImage
-          style={{ maxHeight: "70vh", maxWidth: "100%" }}
+          style={{ maxHeight: "70vh", maxWidth: "100%", borderRadius: "10px" }}
           cldImg={createSingleImageUrl(post.imageId)}
         />
       </Container>
