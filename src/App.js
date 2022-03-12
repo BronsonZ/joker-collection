@@ -24,7 +24,7 @@ function App() {
         <Navbar.Toggle className="navbarBtn shadow-none" style={{ backgroundColor: "#7554A3"}}/>
         <Navbar.Collapse style={{fontSize: "1.2em"}} className="p-1 justify-content-end">
           <Nav >
-            {!checking  && loggedIn && <Nav.Link style={{color: "#7554A3"}} href="/upload">Upload</Nav.Link>}
+            {!checking  && loggedIn && <Nav.Link className="navlink" style={{color: "#7554A3"}} href="/upload">Upload</Nav.Link>}
             <Nav.Link className="navlink" style={{color: "#7554A3"}}  href="/login">Account</Nav.Link>
             <Nav.Link className="navlink" style={{color: "#7554A3"}}  href="/stats">Stats</Nav.Link>
             <Nav.Link className="navlink" style={{color: "#7554A3"}}  href="/wishlist">Wishlist</Nav.Link>
