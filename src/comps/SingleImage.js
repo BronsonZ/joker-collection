@@ -41,7 +41,7 @@ const SingleImage = ({ id, setShowPost, folder }) => {
             </Button>
             {!checking && loggedIn && (
               <Button
-                className="shadow-none mb-1 px-3"
+                className="shadow-none mb-1"
                 variant="danger"
                 onClick={() => setShowModal(true)}
               >
