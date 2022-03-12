@@ -84,7 +84,7 @@ const SingleImage = ({ id, setShowPost, folder }) => {
           <Modal.Body>Successfully deleted "{post.name}"!</Modal.Body>
         )}
 
-        <Modal.Footer>
+        {!doneDeleting && !deleting && <Modal.Footer>
           <Button
             className="shadow-none"
             variant="danger"
@@ -102,7 +102,7 @@ const SingleImage = ({ id, setShowPost, folder }) => {
           >
             No
           </Button>
-        </Modal.Footer>
+        </Modal.Footer>}
       </Modal>
     </>
   );
