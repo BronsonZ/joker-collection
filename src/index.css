@@ -2,6 +2,7 @@
 * {
   font-family: "Oswald", sans-serif;
 }
+
 body {
   padding-top: 60px;
 }
@@ -30,7 +31,7 @@ body {
   .navhome:hover,
   .navbarBtn:hover,
   .stats-link:hover {
-    opacity: 80%;
+    opacity: 75%;
   }
 }
 
