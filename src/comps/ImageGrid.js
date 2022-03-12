@@ -25,10 +25,11 @@ const ImageGrid = ({ posts, folder, title }) => {
         {posts &&
           posts.map((post) => (
             <Col
-              className="text-wrap p-1 overflow-hidden"
+              style={{padding: "2.5px"}}
+              className="text-wrap overflow-hidden"
               key={post.id}
             >
-              <LazyLoad style={{borderRadius: "10px", overflow: "hidden"}} height={250}>
+              <LazyLoad style={{borderRadius: "10px", overflow: "hidden"}} height={200}>
                 <AdvancedImage
                 className="grid-img"
                   onClick={() => handleShow(post.id)}
