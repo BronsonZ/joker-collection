@@ -21,22 +21,21 @@ const ImageGrid = ({ posts, folder, title }) => {
 
   return (
     <>
-      <Row xs="2" sm="2" md="3" lg="3" xl="4" xxl="4">
+      <Row xs="3" sm="3" md="3" lg="4" xl="5" xxl="6">
         {posts &&
           posts.map((post) => (
             <Col
-              className="text-wrap p-1"
+              className="text-wrap p-1 overflow-hidden"
               key={post.id}
             >
-              <LazyLoad height={360}>
+              <LazyLoad style={{borderRadius: "10px", overflow: "hidden"}} height={250}>
                 <AdvancedImage
+                className="grid-img"
                   onClick={() => handleShow(post.id)}
                   style={{
                     objectFit: "cover",
-                    height: "360px",
                     width: "100%",
-                    cursor: "pointer",
-                    borderRadius: "10px"
+                    cursor: "pointer"
                   }}
                   cldImg={createImageUrl(post.imageId)}
                 />

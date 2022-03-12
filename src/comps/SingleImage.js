@@ -12,6 +12,7 @@ const SingleImage = ({ id, setShowPost, folder }) => {
   const [doneDeleting, setDoneDeleting] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { checking, loggedIn } = useContext(LoginContext);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -53,8 +54,9 @@ const SingleImage = ({ id, setShowPost, folder }) => {
             {post.price > 0 && <h3 className="mb-1">Cost: ${post.price}</h3>}
           </Col>
         </Row>
-
+        {!imageLoaded && <p className="mb-0">Image loading...</p>}
         <AdvancedImage
+          onLoad={() => setImageLoaded(true)}
           style={{ maxHeight: "70vh", maxWidth: "100%", borderRadius: "10px" }}
           cldImg={createSingleImageUrl(post.imageId)}
         />
@@ -84,25 +86,27 @@ const SingleImage = ({ id, setShowPost, folder }) => {
           <Modal.Body>Successfully deleted "{post.name}"!</Modal.Body>
         )}
 
-        {!doneDeleting && !deleting && <Modal.Footer>
-          <Button
-            className="shadow-none"
-            variant="danger"
-            onClick={() => {
-              setDeleting(true);
-              handleDelete();
-            }}
-          >
-            Yes
-          </Button>
-          <Button
-            className="shadow-none"
-            variant="dark"
-            onClick={() => setShowModal(false)}
-          >
-            No
-          </Button>
-        </Modal.Footer>}
+        {!doneDeleting && !deleting && (
+          <Modal.Footer>
+            <Button
+              className="shadow-none"
+              variant="danger"
+              onClick={() => {
+                setDeleting(true);
+                handleDelete();
+              }}
+            >
+              Yes
+            </Button>
+            <Button
+              className="shadow-none"
+              variant="dark"
+              onClick={() => setShowModal(false)}
+            >
+              No
+            </Button>
+          </Modal.Footer>
+        )}
       </Modal>
     </>
   );

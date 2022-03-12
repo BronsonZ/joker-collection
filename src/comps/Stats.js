@@ -55,31 +55,31 @@ const Stats = () => {
                 </thead>
                 <tbody>
                 <tr>
-                        <td><Link className="text-reset" to="/?=pop">Pops</Link></td>
+                        <td><Link className="stats-link text-reset" to="/?=pop">Pops</Link></td>
                         <td>{!loadingAll && numberOfPops}</td>
                         <td>${popCost}</td>
                         <td>${!loadingAll && popCost>0 ? Math.round(popCost/numberOfPops) : 0}</td>
                     </tr>
                     <tr>
-                        <td><Link className="text-reset" to="/?=figurine">Figurines</Link></td>
+                        <td><Link className="stats-link text-reset" to="/?=figurine">Figurines</Link></td>
                         <td>{!loadingAll && numberOfFigurines}</td>
                         <td>${fCost}</td>
                         <td>${!loadingAll && fCost>0 ? Math.round(fCost/numberOfFigurines) : 0}</td>
                     </tr>
                     <tr>
-                        <td><Link className="text-reset" to="/?=actionFigure">Action Figures</Link></td>
+                        <td><Link className="stats-link text-reset" to="/?=actionFigure">Action Figures</Link></td>
                         <td>{!loadingAll && numberOfAf}</td>
                         <td>${afCost}</td>
                         <td>${!loadingAll && afCost>0 ? Math.round(afCost/numberOfAf) : 0}</td>
                     </tr>
                     <tr>
-                        <td><Link className="text-reset" to="/?=keychain">Keychains</Link></td>
+                        <td><Link className="stats-link text-reset" to="/?=keychain">Keychains</Link></td>
                         <td>{!loadingAll && numberOfKeychains}</td>
                         <td>${keychainCost}</td>
                         <td>${!loadingAll && keychainCost>0 ? Math.round(keychainCost/numberOfKeychains) : 0}</td>
                     </tr>
                     <tr>
-                        <td><Link className="text-reset" to="/?=other">Others</Link></td>
+                        <td><Link className="stats-link text-reset" to="/?=other">Others</Link></td>
                         <td>{!loadingAll && numberOfOther}</td>
                         <td>${otherCost}</td>
                         <td>${!loadingAll && otherCost>0 ? Math.round(otherCost/numberOfOther) : 0}</td>
@@ -88,7 +88,7 @@ const Stats = () => {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td><Link className="text-reset" to="/?=">Total</Link></td>
+                        <td><Link className="stats-link text-reset" to="/?=">Total</Link></td>
                         <td>{!loadingAll && numberOfJokers}</td>
                         <td>${totalCost}</td>
                         <td>${!loadingAll && totalCost>0 ? Math.round(totalCost/numberOfJokers) : 0}</td>

@@ -20,15 +20,15 @@ function App() {
     <div className="text-success" >
       <Navbar style={{backgroundColor: "rgba(33, 37, 41, 0.90)"}} fixed="top" expand="lg">
         <Container className="text-end">
-        <Navbar.Brand style={{color: "#7554A3", fontSize: "1.5em" }} href="/">Mindi's Jokers!</Navbar.Brand>
-        <Navbar.Toggle className="shadow-none" style={{ backgroundColor: "#7554A3"}}/>
+        <Navbar.Brand className="navhome" style={{color: "#7554A3", fontSize: "1.5em" }} href="/">Mindi's Jokers!</Navbar.Brand>
+        <Navbar.Toggle className="navbarBtn shadow-none" style={{ backgroundColor: "#7554A3"}}/>
         <Navbar.Collapse style={{fontSize: "1.2em"}} className="p-1 justify-content-end">
           <Nav >
             {!checking  && loggedIn && <Nav.Link style={{color: "#7554A3"}} href="/upload">Upload</Nav.Link>}
-            <Nav.Link style={{color: "#7554A3"}}  href="/login">Account</Nav.Link>
-            <Nav.Link style={{color: "#7554A3"}}  href="/stats">Stats</Nav.Link>
-            <Nav.Link style={{color: "#7554A3"}}  href="/wishlist">Wishlist</Nav.Link>
-            <Nav.Link style={{color: "#7554A3"}}  href="/about">About</Nav.Link>
+            <Nav.Link className="navlink" style={{color: "#7554A3"}}  href="/login">Account</Nav.Link>
+            <Nav.Link className="navlink" style={{color: "#7554A3"}}  href="/stats">Stats</Nav.Link>
+            <Nav.Link className="navlink" style={{color: "#7554A3"}}  href="/wishlist">Wishlist</Nav.Link>
+            <Nav.Link className="navlink" style={{color: "#7554A3"}}  href="/about">About</Nav.Link>
           </Nav>
           </Navbar.Collapse>
         </Container>
