@@ -1,63 +1,75 @@
+import useSingleDb from "../hooks/useSingleDb";
+import { DeleteDoc } from "../utils/FirestoreFunctions";
 import { AdvancedImage } from "@cloudinary/react";
 import { useContext, useState } from "react";
 import { Button, Col, Container, Modal, Row, Spinner } from "react-bootstrap";
 import { createSingleImageUrl } from "../utils/CloudinaryFunctions";
 import { LoginContext } from "../Contexts/LoginContext";
 
-const SingleImage = ({
-  post,
-  handleDelete,
-  deleting,
-  setDeleting,
-  setShowImage,
-}) => {
-  const [show, setShow] = useState(false);
+const SingleImage = ({ id, setShowPost, folder }) => {
+  const { post } = useSingleDb(id, folder);
+  const [deleting, setDeleting] = useState(false);
+  const [doneDeleting, setDoneDeleting] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const { checking, loggedIn } = useContext(LoginContext);
 
-  const handleClose = () => setShow(false);
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  const handleDelete = async () => {
+    await DeleteDoc(folder, id);
+    setDeleting(false);
+    setDoneDeleting(true);
+    await sleep(1000);
+    window.location.reload();
+  };
+
   return (
     <>
       <Container fluid className="text-center text-wrap overflow-auto centered">
-        <Row style={{paddingTop: "5em"}}>
+        <Row style={{ paddingTop: "5em" }}>
           <Col>
-          <Button
-          variant="success"
-          className="mb-1 mx-3"
-          onClick={() => {
-            setShowImage(false);
-
-          }}
-        >
-          Close
-        </Button>
-        {!checking && loggedIn && (
-          <Button
-            className="shadow-none mb-1 px-3"
-            variant="danger"
-            onClick={() => setShow(true)}
-          >
-            Delete Joker
-          </Button>
-        )}
-        <h2 className="mb-1">{post.name}</h2>
-        <h4 className="mb-0">{post.desc}</h4>
-        {post.price > 0 && <h3 className="mb-1">Cost: ${post.price}</h3>}
-
+            <Button
+              variant="success"
+              className="mb-1 mx-3"
+              onClick={() => {
+                setShowPost(false);
+              }}
+            >
+              Close
+            </Button>
+            {!checking && loggedIn && (
+              <Button
+                className="shadow-none mb-1 px-3"
+                variant="danger"
+                onClick={() => setShowModal(true)}
+              >
+                Delete Joker
+              </Button>
+            )}
+            <h2 className="mb-1">{post.name}</h2>
+            <h4 className="mb-0">{post.desc}</h4>
+            {post.price > 0 && <h3 className="mb-1">Cost: ${post.price}</h3>}
           </Col>
         </Row>
-        
-        
+
         <AdvancedImage
           style={{ maxHeight: "70vh", maxWidth: "100%" }}
           cldImg={createSingleImageUrl(post.imageId)}
         />
       </Container>
 
-      <Modal className="text-center" centered show={show} onHide={handleClose}>
+      <Modal
+        className="text-center"
+        centered
+        show={showModal}
+        onHide={() => setShowModal(false)}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Are you sure?</Modal.Title>
         </Modal.Header>
-        {!deleting && (
+        {!deleting && !doneDeleting && (
           <Modal.Body>
             Are you sure you want to delete the joker baby "{post.name}"?
           </Modal.Body>
@@ -68,6 +80,9 @@ const SingleImage = ({
             <p className="mb-0">Deleting...</p>
           </Modal.Body>
         )}
+        {doneDeleting && (
+          <Modal.Body>Successfully deleted "{post.name}"!</Modal.Body>
+        )}
 
         <Modal.Footer>
           <Button
@@ -76,12 +91,15 @@ const SingleImage = ({
             onClick={() => {
               setDeleting(true);
               handleDelete();
-              setShowImage(false);
             }}
           >
             Yes
           </Button>
-          <Button className="shadow-none" variant="dark" onClick={handleClose}>
+          <Button
+            className="shadow-none"
+            variant="dark"
+            onClick={() => setShowModal(false)}
+          >
             No
           </Button>
         </Modal.Footer>
