@@ -48,7 +48,7 @@ const SingleImage = ({ id, setShowPost, folder }) => {
                 Delete Joker
               </Button>
             )}
-            <h2 className="mb-1">{post.name}</h2>
+            <h2 className="mb-0">{post.name}</h2>
             <h4 className="mb-0">{post.desc}</h4>
             {post.price > 0 && <h3 className="mb-1">Cost: ${post.price}</h3>}
           </Col>
